@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joshlee Solutions Africa – Cinematic Dark</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#BF924A;--gold-lt:#D4AB6C;--gold-pale:rgba(191,146,74,.2);
+  --purple:#2A0A5E;--purple-mid:#4A1DA8;--purple-lt:#7B52D4;
+  --bg:#060410;--surface:#0E0A20;--card:rgba(255,255,255,0.03);
+  --border:rgba(191,146,74,.12);--text:#EDE8E0;--muted:rgba(237,232,224,.5);
+  --noise:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:var(--noise);pointer-events:none;z-index:1000;mix-blend-mode:overlay;opacity:.5}
+
+/* SCROLL BAR */
+#sbar{position:fixed;top:0;left:0;height:1px;background:linear-gradient(90deg,var(--purple-mid),var(--gold));z-index:1001;width:0}
+
+/* NAV */
+nav{position:fixed;inset:0 0 auto 0;z-index:900;height:76px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;transition:background .5s,backdrop-filter .5s}
+nav.sc{background:rgba(6,4,16,.9);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+.logo-mark{width:44px;height:44px;position:relative;display:flex;align-items:center;justify-content:center}
+.logo-mark::before{content:'';position:absolute;inset:0;border:1px solid var(--gold);opacity:.4;transform:rotate(45deg)}
+.logo-mark::after{content:'';position:absolute;inset:4px;border:1px solid var(--gold);opacity:.2;transform:rotate(45deg)}
+.logo-mark span{font-family:'Cormorant Garamond',serif;font-weight:700;color:var(--gold);font-size:16px;position:relative;z-index:1;letter-spacing:-.5px}
+.logo-name{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.15rem;color:var(--text);line-height:1.1;letter-spacing:.02em}
+.logo-sub{font-size:.6rem;color:var(--muted);letter-spacing:.2em;text-transform:uppercase}
+.nav-ul{display:flex;gap:40px;list-style:none}
+.nav-ul a{color:var(--muted);text-decoration:none;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;transition:color .3s}
+.nav-ul a:hover{color:var(--gold)}
+.nav-btn{border:1px solid var(--gold);color:var(--gold);padding:10px 26px;text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;transition:background .3s,color .3s;position:relative;overflow:hidden}
+.nav-btn::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav-btn:hover{color:var(--bg)}
+.nav-btn:hover::before{transform:scaleX(1)}
+.nav-btn span{position:relative;z-index:1}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px}
+.ham span{display:block;width:24px;height:1px;background:var(--gold);transition:all .3s}
+.ham.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mob{display:none;position:fixed;top:76px;left:0;right:0;background:rgba(6,4,16,.97);backdrop-filter:blur(20px);padding:24px 5%;border-bottom:1px solid var(--border);flex-direction:column;gap:0;z-index:899}
+.mob.open{display:flex}
+.mob a{color:var(--muted);text-decoration:none;font-size:.88rem;letter-spacing:.12em;text-transform:uppercase;padding:16px 0;border-bottom:1px solid var(--border);transition:color .3s}
+.mob a:last-child{border-bottom:none}
+.mob a:hover{color:var(--gold)}
+.mob .nav-btn{margin-top:16px;text-align:center;display:block;border-bottom:none;color:var(--gold)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:0 5%}
+.hero-bg{position:absolute;inset:0}
+.bg-grad1{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(74,29,168,.25),transparent 60%);top:-20%;left:-10%;animation:drift1 12s ease-in-out infinite}
+.bg-grad2{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(191,146,74,.12),transparent 60%);bottom:-15%;right:5%;animation:drift2 10s ease-in-out infinite}
+@keyframes drift1{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-30px)}}
+@keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,20px)}}
+.hero-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(191,146,74,.03) 1px,transparent 1px);background-size:100% 80px}
+.hero-right-deco{position:absolute;right:5%;top:50%;transform:translateY(-50%);width:420px;height:420px;display:flex;align-items:center;justify-content:center}
+.deco-ring{position:absolute;border:1px solid;border-radius:50%;animation:spin 30s linear infinite}
+.dr1{width:100%;height:100%;border-color:rgba(191,146,74,.08);animation-direction:normal}
+.dr2{width:72%;height:72%;border-color:rgba(191,146,74,.12);animation-direction:reverse;animation-duration:20s}
+.dr3{width:44%;height:44%;border-color:rgba(191,146,74,.18)}
+.deco-center{width:120px;height:120px;background:linear-gradient(135deg,var(--purple),var(--purple-mid));border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--gold);border:1px solid rgba(191,146,74,.3);box-shadow:0 0 60px rgba(74,29,168,.4)}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.hcont{position:relative;z-index:2;max-width:640px}
+.eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.eyebrow-line{width:40px;height:1px;background:var(--gold)}
+.eyebrow-text{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);font-weight:500}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3.2rem,7.5vw,6.5rem);font-weight:700;line-height:.95;margin-bottom:28px;letter-spacing:-.02em}
+h1 em{font-style:italic;color:var(--gold)}
+.hdesc{color:var(--muted);font-size:1.05rem;max-width:480px;margin-bottom:44px;line-height:1.85;font-weight:300}
+.hbtns{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:64px}
+.btn1{background:var(--gold);color:var(--bg);padding:14px 34px;text-decoration:none;font-weight:600;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;transition:box-shadow .3s,transform .2s}
+.btn1:hover{box-shadow:0 8px 40px rgba(191,146,74,.35);transform:translateY(-2px)}
+.btn2{border:1px solid rgba(255,255,255,.15);color:var(--text);padding:14px 34px;text-decoration:none;font-weight:400;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;transition:border-color .3s,background .3s}
+.btn2:hover{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.05)}
+.hline{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin-bottom:36px}
+.hstats{display:flex;gap:48px;flex-wrap:wrap}
+.sn{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:700;color:var(--gold);line-height:1}
+.sl{font-size:.7rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-top:4px}
+
+/* SECTIONS */
+section{padding:110px 5%}
+.slabel{display:flex;align-items:center;gap:14px;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-weight:500}
+.slabel::before{content:'';width:32px;height:1px;background:var(--gold)}
+.stitle{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4.5vw,3.5rem);font-weight:700;line-height:1.1;margin-bottom:20px;letter-spacing:-.01em}
+.stitle em{font-style:italic;color:var(--gold)}
+
+/* ABOUT */
+#about .inner{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center;max-width:1200px;margin:0 auto}
+.avis{position:relative}
+.acard-outer{border:1px solid var(--border);padding:48px;position:relative;background:var(--card);backdrop-filter:blur(10px)}
+.acard-outer::before{content:'';position:absolute;top:0;left:0;width:80px;height:1px;background:var(--gold)}
+.acard-outer::after{content:'';position:absolute;top:0;left:0;width:1px;height:80px;background:var(--gold)}
+.acorner{position:absolute;bottom:0;right:0;width:80px;height:1px;background:var(--gold)}
+.acorner::after{content:'';position:absolute;bottom:0;right:0;width:1px;height:80px;background:var(--gold);top:auto}
+.afloat{position:absolute;bottom:-28px;right:-28px;background:linear-gradient(135deg,var(--purple),var(--purple-mid));padding:24px 32px;border:1px solid rgba(191,146,74,.2);box-shadow:0 20px 60px rgba(74,29,168,.3)}
+.afloat-n{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:var(--gold);line-height:1}
+.afloat-t{font-size:.66rem;color:rgba(237,232,224,.5);letter-spacing:.15em;text-transform:uppercase;margin-top:4px}
+.acard-outer p{color:var(--muted);font-size:.92rem;line-height:1.85;margin-bottom:14px;font-weight:300}
+.apoint{display:flex;align-items:center;gap:10px;font-size:.83rem;color:var(--muted);margin-top:10px}
+.apoint::before{content:'—';color:var(--gold);flex-shrink:0}
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
+.vitem{border:1px solid var(--border);padding:20px;transition:border-color .3s,background .3s;position:relative;overflow:hidden}
+.vitem::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(74,29,168,.06),transparent);opacity:0;transition:opacity .4s}
+.vitem:hover{border-color:rgba(191,146,74,.35);background:rgba(255,255,255,.02)}
+.vitem:hover::before{opacity:1}
+.vnum{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:rgba(191,146,74,.15);line-height:1;margin-bottom:8px}
+.vname{font-size:.8rem;font-weight:600;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.vdesc{font-size:.78rem;color:var(--muted);line-height:1.55;font-weight:300}
+
+/* SERVICES */
+#services{background:linear-gradient(180deg,var(--bg) 0%,var(--surface) 50%,var(--bg) 100%)}
+#services .inner{max-width:1200px;margin:0 auto}
+.shdr{margin-bottom:60px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:28px}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.scard{background:var(--bg);padding:40px;transition:background .4s;position:relative;overflow:hidden}
+.scard::after{content:'';position:absolute;top:0;right:0;width:0;height:1px;background:var(--gold);transition:width .5s}
+.scard:hover{background:var(--surface)}
+.scard:hover::after{width:100%}
+.snum{font-family:'Cormorant Garamond',serif;font-size:.8rem;font-weight:600;color:rgba(191,146,74,.5);letter-spacing:.2em;margin-bottom:20px}
+.sico{font-size:26px;margin-bottom:20px}
+.stname{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;margin-bottom:14px;letter-spacing:.01em}
+.sdesc{font-size:.82rem;color:var(--muted);line-height:1.8;font-weight:300}
+.sarr{margin-top:24px;display:inline-flex;align-items:center;gap:10px;font-size:.72rem;color:rgba(191,146,74,.7);font-weight:500;letter-spacing:.12em;text-transform:uppercase;transition:color .3s,gap .3s}
+.scard:hover .sarr{color:var(--gold);gap:16px}
+
+/* CLIENTS */
+#clients{text-align:center;padding:90px 5%}
+#clients .slabel{justify-content:center}
+#clients .slabel::before{display:none}
+.ctracks{display:flex;gap:28px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:52px}
+.cbadge{border:1px solid var(--border);padding:20px 40px;transition:border-color .4s,background .4s;position:relative}
+.cbadge::before{content:'';position:absolute;inset:-1px;border:1px solid transparent;transition:border-color .3s}
+.cbadge:hover{border-color:transparent;background:var(--card)}
+.cbadge:hover::before{border-color:rgba(191,146,74,.4)}
+.cbadge span{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--muted);transition:color .3s;letter-spacing:.05em}
+.cbadge:hover span{color:var(--gold)}
+
+/* CONTACT */
+#contact .inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start}
+.cinfo{position:sticky;top:100px}
+.cinfo p{color:var(--muted);line-height:1.85;margin-bottom:36px;font-weight:300}
+.citems{display:flex;flex-direction:column;gap:12px}
+.citem{display:flex;align-items:center;gap:16px;padding:18px;border:1px solid var(--border);transition:border-color .3s}
+.citem:hover{border-color:rgba(191,146,74,.3)}
+.cico{width:36px;height:36px;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;opacity:.7}
+.citem strong{display:block;font-size:.68rem;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:3px}
+.citem span{font-size:.84rem;color:var(--muted)}
+.cform{display:flex;flex-direction:column;gap:16px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg{display:flex;flex-direction:column;gap:7px}
+.fg label{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.fg input,.fg textarea,.fg select{background:transparent;border:none;border-bottom:1px solid var(--border);padding:12px 0;color:var(--text);font-family:'Outfit',sans-serif;font-size:.9rem;outline:none;transition:border-color .3s;width:100%;appearance:none;font-weight:300}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--gold)}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(237,232,224,.2)}
+.fg textarea{height:110px;resize:vertical}
+.fg select option{background:var(--bg)}
+.fsub{background:transparent;color:var(--gold);border:1px solid var(--gold);padding:16px 40px;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .3s,color .3s;align-self:flex-start;position:relative;overflow:hidden}
+.fsub::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.fsub span{position:relative;z-index:1}
+.fsub:hover{color:var(--bg)}
+.fsub:hover::before{transform:scaleX(1)}
+
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border);padding:60px 5% 28px}
+.ftop{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;margin-bottom:50px}
+.fbrand p{color:var(--muted);font-size:.84rem;line-height:1.8;margin-top:14px;max-width:300px;font-weight:300}
+.fcol h4{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;font-weight:500}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.fcol ul a{color:var(--muted);text-decoration:none;font-size:.84rem;transition:color .3s}
+.fcol ul a:hover{color:var(--gold)}
+.fbot{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:26px;flex-wrap:wrap;gap:14px}
+.fbot p{color:rgba(237,232,224,.25);font-size:.76rem}
+
+/* ANIMATIONS */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.rvl{opacity:0;transform:translateX(-30px);transition:opacity .8s ease,transform .8s ease}
+.rvr{opacity:0;transform:translateX(30px);transition:opacity .8s ease,transform .8s ease}
+.rv.on,.rvl.on,.rvr.on{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .sgrid{grid-template-columns:1fr 1fr}
+  #about .inner,#contact .inner{grid-template-columns:1fr;gap:52px}
+  .ftop{grid-template-columns:1fr 1fr}
+  .cinfo{position:static}
+  .afloat{position:static;margin-top:20px;display:inline-block}
+  .hero-right-deco{display:none}
+}
+@media(max-width:768px){
+  nav{height:66px;padding:0 4%}
+  .nav-ul,.nav-btn{display:none}
+  .ham{display:flex}
+  .hero{padding:90px 4% 60px;min-height:100svh}
+  .hstats{gap:24px}
+  .hbtns{flex-direction:column;align-items:flex-start}
+  section{padding:70px 4%}
+  .sgrid{grid-template-columns:1fr}
+  .frow{grid-template-columns:1fr}
+  .shdr{flex-direction:column;align-items:flex-start}
+  .ftop{grid-template-columns:1fr;gap:28px}
+  .fbot{flex-direction:column;text-align:center}
+  .vgrid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  h1{font-size:3rem}
+  .stitle{font-size:2rem}
+  .ctracks{gap:12px}
+  .cbadge{padding:14px 24px}
+}
+</style>
+</head>
+<body>
+<div id="sbar"></div>
+
+<nav id="nav">
+  <a href="#" class="logo">
+    <div class="logo-mark"><span>JL</span></div>
+    <div style="margin-left:14px">
+      <div class="logo-name">Joshlee Solutions</div>
+      <div class="logo-sub">Africa</div>
+    </div>
+  </a>
+  <ul class="nav-ul">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#clients">Clients</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-btn"><span>Get Started</span></a>
+  <button class="ham" id="ham"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob" id="mob">
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#clients">Clients</a>
+  <a href="#contact">Contact</a>
+  <a href="#contact" class="nav-btn"><span>Get Started</span></a>
+</div>
+
+<section class="hero">
+  <div class="hero-bg">
+    <div class="bg-grad1"></div>
+    <div class="bg-grad2"></div>
+    <div class="hero-lines"></div>
+  </div>
+  <div class="hero-right-deco">
+    <div class="deco-ring dr1"></div>
+    <div class="deco-ring dr2"></div>
+    <div class="deco-ring dr3"></div>
+    <div class="deco-center">JLSA</div>
+  </div>
+  <div class="hcont">
+    <div class="eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">IT Consultancy · Nairobi, Kenya</div></div>
+    <h1>Trusted IT<br><em>Excellence</em><br>For Africa</h1>
+    <p class="hdesc">End-to-end cybersecurity, cloud infrastructure, network security, and IT turnkey solutions — engineered for enterprise Africa.</p>
+    <div class="hbtns">
+      <a href="#services" class="btn1">Our Services</a>
+      <a href="#contact" class="btn2">Get In Touch</a>
+    </div>
+    <div class="hline"></div>
+    <div class="hstats">
+      <div><div class="sn">7+</div><div class="sl">Years</div></div>
+      <div><div class="sn">50+</div><div class="sl">Clients</div></div>
+      <div><div class="sn">6</div><div class="sl">Services</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="inner">
+    <div class="rvl">
+      <div class="acard-outer">
+        <div class="acorner"></div>
+        <div class="slabel" style="margin-bottom:20px">Est. Nairobi, Kenya</div>
+        <p>Joshlee Solutions Africa (JLSA) is a premier IT consultancy delivering enterprise-grade technology solutions to businesses across the continent.</p>
+        <p>We transform complex IT challenges into strategic advantages through deep expertise in cybersecurity, networking, and cloud infrastructure.</p>
+        <div class="apoint">Mission: Deliver future-ready IT solutions</div>
+        <div class="apoint">Vision: Digital excellence across Africa</div>
+        <div class="apoint">Built on trust, quality, and innovation</div>
+      </div>
+      <div class="afloat">
+        <div class="afloat-n">JLSA</div>
+        <div class="afloat-t">Solutions Africa</div>
+      </div>
+    </div>
+    <div class="rvr">
+      <div class="slabel">Our Values</div>
+      <h2 class="stitle">Developing Solutions for <em>The Future</em></h2>
+      <div class="vgrid">
+        <div class="vitem d1"><div class="vnum">01</div><div class="vname">Acceptability</div><div class="vdesc">Easy to use, compatible solutions that fit your existing infrastructure</div></div>
+        <div class="vitem d2"><div class="vnum">02</div><div class="vname">Dependability</div><div class="vdesc">Trusted and reliable delivery on every client expectation</div></div>
+        <div class="vitem d3"><div class="vnum">03</div><div class="vname">Efficiency</div><div class="vdesc">Cost-effective approaches that maximize system resources</div></div>
+        <div class="vitem d4"><div class="vnum">04</div><div class="vname">Maintainability</div><div class="vdesc">Flexible, adaptive products that evolve with your business</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="inner">
+    <div class="shdr">
+      <div><div class="slabel rv">What We Do</div><h2 class="stitle rv">Our <em>Services</em></h2></div>
+      <p class="rv" style="color:var(--muted);max-width:320px;font-size:.9rem;line-height:1.85;font-weight:300">Enterprise IT solutions engineered for the African market — from security to full turnkey implementations.</p>
+    </div>
+    <div class="sgrid">
+      <div class="scard rv d1"><div class="snum">01 / 06</div><div class="sico">🛡️</div><h3 class="stname">Cybersecurity</h3><p class="sdesc">Comprehensive threat protection, vulnerability assessments, and proactive defense strategies to secure your digital infrastructure from evolving cyber threats.</p><div class="sarr">Explore ——</div></div>
+      <div class="scard rv d2"><div class="snum">02 / 06</div><div class="sico">☁️</div><h3 class="stname">Cloud Security</h3><p class="sdesc">Secure cloud migration, multi-cloud architecture design, and ongoing cloud posture management to protect your data at every layer.</p><div class="sarr">Explore ——</div></div>
+      <div class="scard rv d3"><div class="snum">03 / 06</div><div class="sico">🌐</div><h3 class="stname">Network Security Audit</h3><p class="sdesc">Deep-dive network assessments identifying vulnerabilities in LAN/WAN infrastructure, firewall configurations, and access control policies.</p><div class="sarr">Explore ——</div></div>
+      <div class="scard rv d1"><div class="snum">04 / 06</div><div class="sico">💻</div><h3 class="stname">Software Security Audit</h3><p class="sdesc">End-to-end application security reviews — static and dynamic code analysis, penetration testing, and compliance reporting for your software stack.</p><div class="sarr">Explore ——</div></div>
+      <div class="scard rv d2"><div class="snum">05 / 06</div><div class="sico">🔧</div><h3 class="stname">IT Turnkey Solutions</h3><p class="sdesc">Full-scope project delivery from needs analysis through hardware procurement, installation, configuration, and staff training. We handle everything.</p><div class="sarr">Explore ——</div></div>
+      <div class="scard rv d3"><div class="snum">06 / 06</div><div class="sico">📡</div><h3 class="stname">ICT Management</h3><p class="sdesc">Strategic ICT policy development, Office 365 management, cloud storage, and enterprise networking services with minimal downtime guarantees.</p><div class="sarr">Explore ——</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="clients">
+  <div class="slabel">Who We Serve</div>
+  <h2 class="stitle rv">Trusted by <em>Leading Organizations</em></h2>
+  <div class="ctracks">
+    <div class="cbadge rv d1"><span>Italian Trade Agency</span></div>
+    <div class="cbadge rv d2"><span>Grasi San Marco – Malindi</span></div>
+    <div class="cbadge rv d3"><span>Self Help Africa</span></div>
+    <div class="cbadge rv d4"><span>Metropolitan Sacco</span></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="inner">
+    <div class="cinfo rvl">
+      <div class="slabel">Get In Touch</div>
+      <h2 class="stitle">Let's Build Something <em>Secure</em></h2>
+      <p>Ready to secure your infrastructure and accelerate your IT strategy? Our team is on standby to discuss your needs and propose the right solution.</p>
+      <div class="citems">
+        <div class="citem"><div class="cico">📞</div><div><strong>Phone</strong><span>+254 739 293 691</span></div></div>
+        <div class="citem"><div class="cico">✉️</div><div><strong>Email</strong><span>info@joshleeafrica.com</span></div></div>
+        <div class="citem"><div class="cico">📍</div><div><strong>Location</strong><span>Nairobi, Kenya</span></div></div>
+      </div>
+    </div>
+    <div class="cform rvr">
+      <div class="frow">
+        <div class="fg"><label>First Name</label><input type="text" placeholder="John"></div>
+        <div class="fg"><label>Last Name</label><input type="text" placeholder="Doe"></div>
+      </div>
+      <div class="fg"><label>Email</label><input type="email" placeholder="john@company.com"></div>
+      <div class="fg"><label>Service</label><select><option value="">Select a service...</option><option>Cybersecurity</option><option>Cloud Security</option><option>Network Security Audit</option><option>Software Security Audit</option><option>IT Turnkey Solutions</option><option>ICT Management</option></select></div>
+      <div class="fg"><label>Message</label><textarea placeholder="Tell us about your project..."></textarea></div>
+      <button class="fsub"><span>Send Message →</span></button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ftop">
+    <div class="fbrand">
+      <div class="logo"><div class="logo-mark"><span>JL</span></div><div style="margin-left:14px"><div class="logo-name">Joshlee Solutions</div><div class="logo-sub">Africa</div></div></div>
+      <p>Developing solutions for the future. Nairobi's premier IT consultancy serving enterprises across East Africa and beyond.</p>
+    </div>
+    <div class="fcol"><h4>Services</h4><ul><li><a href="#services">Cybersecurity</a></li><li><a href="#services">Cloud Security</a></li><li><a href="#services">Network Audit</a></li><li><a href="#services">Software Audit</a></li><li><a href="#services">Turnkey Solutions</a></li></ul></div>
+    <div class="fcol"><h4>Company</h4><ul><li><a href="#about">About Us</a></li><li><a href="#clients">Our Clients</a></li><li><a href="#contact">Contact</a></li></ul></div>
+  </div>
+  <div class="fbot">
+    <p>© 2026 Joshlee Solutions Africa. All rights reserved.</p>
+    <p style="color:var(--gold);font-size:.74rem;opacity:.7">Nairobi, Kenya</p>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const p=scrollY/(document.body.scrollHeight-innerHeight)*100;
+  document.getElementById('sbar').style.width=p+'%';
+  document.getElementById('nav').classList.toggle('sc',scrollY>60);
+});
+const ham=document.getElementById('ham'),mob=document.getElementById('mob');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}));
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),{threshold:.1});
+document.querySelectorAll('.rv,.rvl,.rvr,.vitem,.cbadge,.scard').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
