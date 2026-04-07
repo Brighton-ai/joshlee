@@ -46,33 +46,43 @@ body{font-family:'Outfit',sans-serif;background:var(--white);color:var(--ink);ov
 
 /* ═══════════════ NAV ═══════════════ */
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all .4s;}
-.nav-wrap{max-width:1360px;margin:0 auto;padding:0 56px;height:70px;display:flex;align-items:center;justify-content:space-between;}
+.nav-wrap{max-width:1360px;margin:0 auto;padding:0 56px;height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
 nav.scrolled{background:rgba(254,252,255,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--rule);box-shadow:var(--shadow);}
-.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
-.logo-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--purple),var(--purple2));border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(107,50,200,.35);flex-shrink:0;}
+
+/* Logo — FIX: prevent overflow on small screens */
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0;flex-shrink:1;}
+.logo-icon{width:42px;height:42px;min-width:42px;background:linear-gradient(135deg,var(--purple),var(--purple2));border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(107,50,200,.35);flex-shrink:0;}
 .logo-icon::after{content:'J';font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold3);position:relative;z-index:1;}
-.logo-text{line-height:1.15;}
-.logo-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--ink);letter-spacing:.3px;}
+.logo-text{line-height:1.15;min-width:0;overflow:hidden;}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--ink);letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .logo-name em{color:var(--purple2);font-style:normal;}
-.logo-sub{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);font-weight:400;}
-.nav-links{display:flex;align-items:center;gap:4px;list-style:none;}
-.nav-links a{padding:7px 14px;border-radius:8px;color:var(--ink3);text-decoration:none;font-size:13.5px;font-weight:400;transition:all .2s;}
+.logo-sub{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);font-weight:400;white-space:nowrap;}
+
+/* Desktop nav links */
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none;flex-shrink:0;}
+.nav-links a{padding:7px 14px;border-radius:8px;color:var(--ink3);text-decoration:none;font-size:13.5px;font-weight:400;transition:all .2s;white-space:nowrap;}
 .nav-links a:hover{background:var(--purple-light);color:var(--purple2);}
 .nav-cta{background:linear-gradient(135deg,var(--purple),var(--purple2))!important;color:#fff!important;padding:9px 22px!important;border-radius:8px!important;font-weight:600!important;box-shadow:0 4px 16px rgba(107,50,200,.3)!important;letter-spacing:.2px!important;}
 .nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(107,50,200,.4)!important;background:linear-gradient(135deg,var(--purple2),var(--purple3))!important;}
-.hbg{display:none;flex-direction:column;gap:5px;cursor:none;background:none;border:none;padding:6px;}
-.hbg span{width:22px;height:1.5px;background:var(--ink);border-radius:2px;transition:all .3s;}
+
+/* Hamburger — FIX: hidden on desktop, shown on mobile */
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px;flex-shrink:0;z-index:1001;}
+.hbg span{width:22px;height:1.5px;background:var(--ink);border-radius:2px;transition:all .3s;display:block;}
 .hbg.active span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
 .hbg.active span:nth-child(2){opacity:0;}
 .hbg.active span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+/* Make hamburger lines white when nav is not scrolled (dark hero bg) */
+nav:not(.scrolled) .hbg span{background:#fff;}
 
-/* Mobile nav overlay */
-.nav-overlay{display:none;position:fixed;inset:0;background:rgba(10,8,18,.95);backdrop-filter:blur(12px);z-index:998;flex-direction:column;align-items:center;justify-content:center;gap:0;}
+/* Mobile nav overlay — FIX: proper full-screen overlay */
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(10,8,18,.97);backdrop-filter:blur(12px);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:20px 0;}
 .nav-overlay.open{display:flex;}
 .nav-overlay li{list-style:none;width:100%;text-align:center;}
 .nav-overlay a{display:block;padding:18px 24px;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:rgba(255,255,255,.8);text-decoration:none;transition:all .2s;border-bottom:1px solid rgba(255,255,255,.05);}
-.nav-overlay a:hover{color:var(--gold3);}
+.nav-overlay a:hover,.nav-overlay a:active{color:var(--gold3);}
 .nav-overlay .nav-cta{background:linear-gradient(135deg,var(--purple),var(--purple2))!important;color:#fff!important;border-radius:0!important;font-weight:700!important;font-size:22px!important;}
+/* Close button inside overlay */
+.nav-overlay-close{position:absolute;top:20px;right:24px;background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);font-size:16px;padding:8px 16px;border-radius:8px;cursor:pointer;font-family:'Outfit',sans-serif;}
 
 /* ═══════════════ HERO ═══════════════ */
 #home{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden;background:var(--black);}
@@ -98,7 +108,6 @@ nav.scrolled{background:rgba(254,252,255,.96);backdrop-filter:blur(20px);border-
 .btn-outline:hover{border-color:var(--gold3);color:var(--gold3);}
 .hero-right{opacity:0;animation:fRight .9s .5s forwards;position:relative;}
 @keyframes fRight{from{opacity:0;transform:translateX(36px)}to{opacity:1;transform:translateX(0)}}
-/* Floating terminal card */
 .hero-terminal{background:rgba(26,8,56,.85);border:1px solid rgba(107,50,200,.4);border-radius:16px;overflow:hidden;backdrop-filter:blur(20px);box-shadow:0 24px 80px rgba(0,0,0,.4);}
 .terminal-bar{background:rgba(107,50,200,.2);padding:12px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(107,50,200,.2);}
 .tb-dot{width:10px;height:10px;border-radius:50%;}
@@ -117,7 +126,6 @@ nav.scrolled{background:rgba(254,252,255,.96);backdrop-filter:blur(20px);border-
 .hsm:hover{background:rgba(107,50,200,.2);border-color:rgba(107,50,200,.5);}
 .hsm-ic{font-size:18px;margin-bottom:6px;}
 .hsm-t{font-size:12px;font-weight:600;color:rgba(255,255,255,.8);letter-spacing:.2px;}
-/* Floating badge */
 .hero-badge{position:absolute;bottom:-18px;left:-24px;background:var(--gold);border-radius:12px;padding:12px 18px;box-shadow:0 8px 28px rgba(201,150,12,.35);display:flex;align-items:center;gap:10px;animation:float 4s ease-in-out infinite;}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 .hb-ic{font-size:20px;}
@@ -196,7 +204,7 @@ nav.scrolled{background:rgba(254,252,255,.96);backdrop-filter:blur(20px);border-
 .svc-tags{display:flex;flex-wrap:wrap;gap:6px;}
 .svc-tag{font-size:11px;background:var(--purple-light);border:1px solid rgba(107,50,200,.15);color:var(--purple2);padding:3px 10px;border-radius:100px;font-weight:500;}
 
-/* ═══════════════ HORIZONTAL SCROLL (products) ═══════════════ */
+/* ═══════════════ PRODUCTS horizontal scroll ═══════════════ */
 #products{background:var(--cream);padding:110px 0;}
 .prod-hd{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:56px;}
 .prod-scroll-outer{position:relative;overflow:hidden;}
@@ -216,10 +224,12 @@ nav.scrolled{background:rgba(254,252,255,.96);backdrop-filter:blur(20px);border-
 .prod-card-feats li{font-size:12.5px;color:var(--ink3);padding:6px 0;border-bottom:1px solid var(--rule2);list-style:none;display:flex;align-items:center;gap:8px;}
 .prod-card-feats li:last-child{border-bottom:none;}
 .prod-card-feats li::before{content:'';width:5px;height:5px;background:var(--gold2);border-radius:50%;flex-shrink:0;}
+
+/* FIX: Product controls — proper layout on all screens */
 .prod-ctrls{display:flex;align-items:center;gap:14px;padding:0 56px;margin-top:8px;}
-.pc-btn{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--rule);background:#fff;display:flex;align-items:center;justify-content:center;cursor:none;transition:.25s;color:var(--ink);font-size:16px;}
+.pc-btn{width:42px;height:42px;min-width:42px;border-radius:50%;border:1.5px solid var(--rule);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.25s;color:var(--ink);font-size:16px;flex-shrink:0;}
 .pc-btn:hover{background:linear-gradient(135deg,var(--purple),var(--purple2));border-color:transparent;color:#fff;box-shadow:0 4px 16px rgba(107,50,200,.3);}
-.pc-bar{flex:1;height:2px;background:var(--rule);border-radius:2px;overflow:hidden;position:relative;}
+.pc-bar{flex:1;height:2px;background:var(--rule);border-radius:2px;overflow:hidden;position:relative;min-width:0;}
 .pc-thumb{height:100%;background:linear-gradient(90deg,var(--purple2),var(--gold2));border-radius:2px;position:absolute;left:0;top:0;transition:width .2s,left .1s;}
 
 /* ═══════════════ CLIENTS ═══════════════ */
@@ -236,8 +246,16 @@ nav.scrolled{background:rgba(254,252,255,.96);backdrop-filter:blur(20px);border-
 .cl-loc{font-size:11.5px;color:var(--ink4);margin-bottom:10px;font-weight:300;}
 .cl-badge{display:inline-block;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--purple2);background:var(--purple-light);border:1px solid rgba(107,50,200,.2);padding:3px 10px;border-radius:100px;}
 
-/* ═══════════════ ZOOM SCROLL ═══════════════ */
+/* ═══════════════ ZOOM/CHAPTERS SECTION — FIX ═══════════════
+   On mobile, scroll-based sticky sections create huge gaps because
+   touch scroll doesn't fire events reliably for JavaScript tracking.
+   SOLUTION: Replace with a simple tab/accordion-style layout on mobile,
+   keeping the sticky scroll only on desktop (min-width:961px).
+   On mobile we show a plain stacked card list instead.
+============================================================= */
 #features{background:var(--cream);}
+
+/* Desktop: sticky scroll version */
 .zoom-outer{height:500vh;position:relative;}
 .zoom-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--cream);}
 .z-rings{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;}
@@ -258,6 +276,15 @@ nav.scrolled{background:rgba(254,252,255,.96);backdrop-filter:blur(20px);border-
 .z-si.on .z-si-bar{width:30px;}
 .z-si-lbl{font-size:11px;font-weight:500;color:var(--ink3);white-space:nowrap;}
 
+/* Mobile chapters — shown only on mobile */
+.chapters-mobile{display:none;}
+.chap-card{background:#fff;border:1px solid var(--rule);border-radius:16px;padding:28px;margin-bottom:16px;}
+.chap-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--purple2);font-weight:600;margin-bottom:10px;display:block;}
+.chap-h{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);line-height:1.1;margin-bottom:10px;}
+.chap-h em{color:var(--purple2);font-style:italic;}
+.chap-p{font-size:14px;color:var(--ink3);line-height:1.7;font-weight:300;}
+.chap-num{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:700;color:rgba(107,50,200,.06);float:right;line-height:1;margin-left:10px;}
+
 /* ═══════════════ PULL QUOTE ═══════════════ */
 #pullquote{background:linear-gradient(135deg,var(--purple-deeper),var(--purple-dark),var(--black2));padding:100px 0;}
 .pq-inner{text-align:center;}
@@ -266,11 +293,10 @@ nav.scrolled{background:rgba(254,252,255,.96);backdrop-filter:blur(20px);border-
 .pq-text em{color:var(--gold3);font-style:normal;font-weight:600;}
 .pq-attr{margin-top:32px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3);}
 
-/* ═══════════════ SPIRAL TECH ═══════════════ */
+/* ═══════════════ TECHNOLOGY ═══════════════ */
 #technology{background:var(--white);}
 .tech-layout{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;}
 .tech-stage{height:460px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-/* Replaced broken 3D spiral with a clean 2D orbit grid */
 .sp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:100%;}
 .sp-c{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:15px 17px;box-shadow:var(--shadow);transition:.3s;cursor:default;}
 .sp-c:hover{border-color:rgba(107,50,200,.35);box-shadow:var(--shadow2);transform:translateY(-3px);}
@@ -360,7 +386,7 @@ nav.scrolled{background:rgba(254,252,255,.96);backdrop-filter:blur(20px);border-
 .fi,.fs,.ft{background:#fff;border:1.5px solid var(--rule);border-radius:8px;padding:12px 15px;color:var(--ink);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:.25s;width:100%;font-weight:300;}
 .fi:focus,.fs:focus,.ft:focus{border-color:var(--purple2);box-shadow:0 0 0 3px rgba(107,50,200,.08);}
 .ft{resize:vertical;min-height:115px;}
-.fsub{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;padding:14px 36px;border-radius:8px;font-weight:600;font-size:14px;border:none;cursor:none;font-family:'Outfit',sans-serif;transition:.3s;align-self:flex-start;box-shadow:0 4px 18px rgba(107,50,200,.3);}
+.fsub{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;padding:14px 36px;border-radius:8px;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:.3s;align-self:flex-start;box-shadow:0 4px 18px rgba(107,50,200,.3);}
 .fsub:hover{background:linear-gradient(135deg,var(--purple2),var(--purple3));transform:translateY(-1px);box-shadow:0 8px 28px rgba(107,50,200,.4);}
 
 /* ═══════════════ FOOTER ═══════════════ */
@@ -374,9 +400,8 @@ footer{background:var(--black);padding:72px 0 36px;}
 .ft-col ul a:hover{color:var(--gold3);}
 .ft-bottom{padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
 .ft-bottom p{font-size:12px;color:rgba(255,255,255,.2);}
-.admin-btn{background:none;border:none;color:rgba(255,255,255,.1);font-size:12px;cursor:none;padding:4px 8px;border-radius:4px;transition:.2s;font-family:'Outfit',sans-serif;letter-spacing:.5px;}
+.admin-btn{background:none;border:none;color:rgba(255,255,255,.1);font-size:12px;cursor:pointer;padding:4px 8px;border-radius:4px;transition:.2s;font-family:'Outfit',sans-serif;letter-spacing:.5px;}
 .admin-btn:hover{color:rgba(255,255,255,.3);}
-/* Footer logo fix */
 .ft-logo-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:#fff;letter-spacing:.3px;}
 .ft-logo-name em{color:var(--purple2);font-style:normal;}
 .ft-logo-sub{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);font-weight:400;}
@@ -387,18 +412,18 @@ footer{background:var(--black);padding:72px 0 36px;}
 .rv.in,.rv-l.in,.rv-r.in{opacity:1;transform:none;}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
 
-/* ═══════════════ ADMIN (bottom sheet) ═══════════════ */
+/* ═══════════════ ADMIN ═══════════════ */
 #admin-panel{display:none;position:fixed;inset:0;z-index:10000;background:rgba(10,8,18,.6);backdrop-filter:blur(8px);}
 #admin-panel.open{display:flex;align-items:flex-end;}
 .a-sheet{background:var(--white);width:100%;max-height:88vh;border-radius:20px 20px 0 0;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 -32px 80px rgba(75,29,143,.25);}
 .a-hdr{padding:20px 28px;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:var(--cream);}
 .a-hdr h2{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--ink);}
 .a-hdr h2 em{color:var(--purple2);font-style:italic;}
-.a-x{background:none;border:1px solid var(--rule);color:var(--ink3);padding:7px 16px;border-radius:100px;cursor:none;font-family:'Outfit',sans-serif;font-size:13px;transition:.2s;}
+.a-x{background:none;border:1px solid var(--rule);color:var(--ink3);padding:7px 16px;border-radius:100px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;transition:.2s;}
 .a-x:hover{border-color:var(--purple2);color:var(--purple2);}
 .a-body{display:flex;flex:1;overflow:hidden;}
 .a-sidebar{width:170px;border-right:1px solid var(--rule);padding:14px 10px;flex-shrink:0;display:flex;flex-direction:column;gap:3px;overflow-y:auto;background:var(--cream);}
-.a-tab{background:none;border:none;cursor:none;padding:9px 14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:400;color:var(--ink3);text-align:left;transition:.2s;width:100%;}
+.a-tab{background:none;border:none;cursor:pointer;padding:9px 14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:400;color:var(--ink3);text-align:left;transition:.2s;width:100%;}
 .a-tab:hover{background:var(--purple-light);color:var(--purple2);}
 .a-tab.on{background:var(--purple-light);color:var(--purple2);font-weight:700;border-left:2px solid var(--purple2);}
 .a-main{flex:1;overflow-y:auto;padding:24px 28px;}
@@ -411,7 +436,7 @@ footer{background:var(--black);padding:72px 0 36px;}
 .a-in,.a-ta{background:#fff;border:1px solid var(--rule);border-radius:7px;padding:9px 12px;color:var(--ink);font-family:'Outfit',sans-serif;font-size:13.5px;outline:none;transition:.2s;width:100%;font-weight:300;}
 .a-in:focus,.a-ta:focus{border-color:var(--purple2);}
 .a-ta{resize:vertical;min-height:70px;}
-.a-save{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;padding:9px 24px;border-radius:8px;font-weight:600;font-size:13px;border:none;cursor:none;font-family:'Outfit',sans-serif;transition:.2s;box-shadow:0 2px 10px rgba(107,50,200,.25);}
+.a-save{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;padding:9px 24px;border-radius:8px;font-weight:600;font-size:13px;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:.2s;box-shadow:0 2px 10px rgba(107,50,200,.25);}
 .a-save:hover{box-shadow:0 4px 16px rgba(107,50,200,.4);}
 
 /* ═══════════════ RESPONSIVE ═══════════════ */
@@ -419,12 +444,23 @@ footer{background:var(--black);padding:72px 0 36px;}
   .values-grid{grid-template-columns:1fr 1fr;}
   .ft-grid{grid-template-columns:1fr 1fr;gap:40px;}
 }
+
+/* FIX: 960px breakpoint — hide desktop nav, show hamburger properly */
 @media(max-width:960px){
   body{cursor:auto;}
   #cur,#cur-r{display:none;}
+
+  /* NAV FIX */
+  .nav-wrap{padding:0 20px;height:64px;}
+  .nav-links{display:none !important;} /* hide desktop nav entirely */
   .hbg{display:flex;}
+  /* Logo shrink on mobile */
+  .logo-name{font-size:15px;}
+  .logo-sub{display:none;} /* hide tagline on mobile to avoid overflow */
+  .logo-icon{width:36px;height:36px;min-width:36px;}
+  .logo-icon::after{font-size:18px;}
+
   .wrap{padding:0 24px;}
-  .nav-wrap{padding:0 24px;}
   .hero-content{grid-template-columns:1fr;padding:90px 24px 60px;gap:40px;}
   .hero-right{display:none;}
   .about-grid{grid-template-columns:1fr;gap:40px;}
@@ -442,8 +478,16 @@ footer{background:var(--black);padding:72px 0 36px;}
   .test-layout{grid-template-columns:1fr;gap:32px;}
   .ft-grid{grid-template-columns:1fr 1fr;gap:32px;}
   .frow{grid-template-columns:1fr;}
-  .prod-track{padding-left:24px;padding-right:24px;}
-  .prod-ctrls{padding-left:24px;padding-right:24px;}
+
+  /* Products scroll on mobile — FIX */
+  .prod-track{padding-left:20px;padding-right:20px;}
+  .prod-ctrls{padding-left:20px;padding-right:20px;}
+
+  /* CHAPTERS / ZOOM FIX — switch to mobile card layout */
+  .zoom-outer{display:none !important;} /* hide the sticky scroll entirely */
+  .chapters-mobile{display:block;padding:72px 0;}
+  .chapters-mobile .wrap{padding:0 24px;}
+
   .z-side{display:none;}
   .z-step{padding:0 24px;}
   .a-grid{grid-template-columns:1fr;}
@@ -457,6 +501,7 @@ footer{background:var(--black);padding:72px 0 36px;}
   .stat-col{padding:36px 24px;}
   .stat-n{font-size:48px;}
 }
+
 @media(max-width:600px){
   .services-grid{grid-template-columns:1fr;}
   .values-grid{grid-template-columns:1fr;}
@@ -470,10 +515,15 @@ footer{background:var(--black);padding:72px 0 36px;}
   .cl-runner{margin-top:16px;}
   .cform{padding:24px;}
   .contact-layout .sec-p{max-width:100%;}
-  .zoom-outer{height:350vh;}
   .sec{padding:56px 0;}
   #products{padding:56px 0;}
   #rotation{padding:56px 0;}
+  .prod-card{width:260px;}
+
+  /* On very small screens, reduce the sticky zoom height if it somehow shows */
+  .zoom-outer{height:300vh;}
+
+  .chapters-mobile{padding:56px 0;}
 }
 </style>
 </head>
@@ -492,6 +542,7 @@ footer{background:var(--black);padding:72px 0 36px;}
         <div class="logo-sub">Developing Solutions for The Future</div>
       </div>
     </a>
+    <!-- Desktop links -->
     <ul class="nav-links" id="nav-links">
       <li><a href="#home">Home</a></li>
       <li><a href="#about">About</a></li>
@@ -501,12 +552,14 @@ footer{background:var(--black);padding:72px 0 36px;}
       <li><a href="#values">Values</a></li>
       <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
     </ul>
+    <!-- Hamburger -->
     <button class="hbg" id="hbg" aria-label="Toggle menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <!-- MOBILE NAV OVERLAY -->
 <ul class="nav-overlay" id="nav-overlay">
+  <button class="nav-overlay-close" id="nav-overlay-close">✕ Close</button>
   <li><a href="#home">Home</a></li>
   <li><a href="#about">About</a></li>
   <li><a href="#services">Services</a></li>
@@ -642,9 +695,9 @@ footer{background:var(--black);padding:72px 0 36px;}
   </div>
   <div class="prod-scroll-outer rv"><div class="prod-track" id="prod-track"></div></div>
   <div class="prod-ctrls">
-    <button class="pc-btn" id="prod-prev">←</button>
+    <button class="pc-btn" id="prod-prev" aria-label="Previous">←</button>
     <div class="pc-bar"><div class="pc-thumb" id="prod-thumb"></div></div>
-    <button class="pc-btn" id="prod-next">→</button>
+    <button class="pc-btn" id="prod-next" aria-label="Next">→</button>
   </div>
   <div style="padding-bottom:110px;"></div>
 </section>
@@ -671,7 +724,7 @@ footer{background:var(--black);padding:72px 0 36px;}
 </section>
 <div class="divider"></div>
 
-<!-- ZOOM SCROLL -->
+<!-- ZOOM SCROLL (Desktop only — hidden on mobile via CSS) -->
 <section id="features">
   <div class="zoom-outer" id="zoom-outer">
     <div class="zoom-sticky">
@@ -683,6 +736,15 @@ footer{background:var(--black);padding:72px 0 36px;}
       <div id="zoom-steps"></div>
       <div class="z-prog" id="z-prog"></div>
       <div class="z-side" id="z-side"></div>
+    </div>
+  </div>
+
+  <!-- Mobile chapters replacement — shown instead of sticky scroll on mobile -->
+  <div class="chapters-mobile" id="chapters-mobile">
+    <div class="wrap">
+      <div class="sec-eye" style="justify-content:center;margin-bottom:8px;">Our Approach</div>
+      <h2 class="sec-h" style="text-align:center;margin-bottom:40px;">How We <em>Work</em></h2>
+      <div id="chap-cards-mobile"></div>
     </div>
   </div>
 </section>
@@ -1047,18 +1109,27 @@ function renderAll(){
   s('prod-track',D.products.map(p=>`<div class="prod-card"><div class="prod-card-top"><div class="pc-num">${p.n}</div><div class="prod-card-ic">${p.ic}</div><div class="prod-card-title">${p.t}</div><div class="prod-card-desc">${p.d}</div></div><ul class="prod-card-feats">${p.f.map(f=>`<li>${f}</li>`).join('')}</ul></div>`).join(''));
   initProdScroll();
 
-  // Clients — FIX: use .slice() to avoid mutating the original array; row2 goes opposite direction
+  // Clients
   const mkCl=arr=>arr.map(c=>`<div class="cl-card"><div class="cl-name">${c.n}</div><div class="cl-loc">${c.l}</div><div class="cl-badge">${c.t}</div></div>`).join('');
   s('cl-track',mkCl([...D.clients,...D.clients,...D.clients]));
   s('cl-track2',mkCl([...D.clients].slice().reverse().concat([...D.clients].slice().reverse()).concat([...D.clients].slice().reverse())));
   startCl();
 
-  // Zoom steps
+  // Zoom steps (desktop)
   s('zoom-steps',D.zoomSteps.map((z,i)=>`<div class="z-step ${i===0?'on':''}" id="zs${i}"><span class="z-step-tag">Chapter ${z.n}</span><h2 class="z-step-h">${z.t} <em>${z.em}</em></h2><p class="z-step-p">${z.d}</p></div>`).join(''));
   s('z-prog',D.zoomSteps.map((_,i)=>`<div class="z-dot ${i===0?'on':''}" id="zd${i}"></div>`).join(''));
   s('z-side',D.zoomSteps.map((z,i)=>`<div class="z-si ${i===0?'on':''}" id="zsi${i}"><div class="z-si-bar"></div><div class="z-si-lbl">${z.t} ${z.em}</div></div>`).join(''));
 
-  // Technology grid (replaced broken 3D spiral with clean 2D grid)
+  // Mobile chapters cards
+  s('chap-cards-mobile',D.zoomSteps.map((z,i)=>`
+    <div class="chap-card rv d${Math.min(i+1,5)}">
+      <span class="chap-num">${z.n}</span>
+      <span class="chap-tag">Chapter ${z.n}</span>
+      <div class="chap-h">${z.t} <em>${z.em}</em></div>
+      <p class="chap-p">${z.d}</p>
+    </div>`).join(''));
+
+  // Technology grid
   const stage=g('tech-stage');
   if(stage){stage.innerHTML=`<div class="sp-grid">${D.techCards.map(c=>`<div class="sp-c"><div class="ic">${c.ic}</div><div class="t">${c.t}</div><div class="d">${c.d}</div></div>`).join('')}</div>`;}
 
@@ -1081,15 +1152,11 @@ function renderAll(){
   // Admin panels
   renderSvcsAdmin();renderProdsAdmin();renderClsAdmin();renderTsAdmin();
 
-  // Re-observe after rendering dynamic content
   reObserve();
   observeCounters();
-
-  // FIX: Init cursor hover on dynamically added elements via event delegation
-  initCursorDelegation();
 }
 
-/* ═══ PRODUCT SCROLL — FIX: thumb uses transform not 'left' as inline style ═══ */
+/* ═══ PRODUCT SCROLL ═══ */
 function initProdScroll(){
   const track=g('prod-track'),thumb=g('prod-thumb');
   if(!track||!thumb)return;
@@ -1107,7 +1174,7 @@ function initProdScroll(){
   upThumb();
 }
 
-/* ═══ CLIENTS MARQUEE — FIX: row2 moves in reverse ═══ */
+/* ═══ CLIENTS MARQUEE ═══ */
 let clAnimId=null;
 let cX=0,cX2=0;
 function startCl(){
@@ -1120,7 +1187,6 @@ function startCl(){
     cX+=0.5; if(cX>=mx1)cX=0;
     cX2+=0.5; if(cX2>=mx2)cX2=0;
     t1.style.transform=`translateX(-${cX}px)`;
-    // Row 2 moves right (reverse direction)
     t2.style.transform=`translateX(${cX2-mx2/3*2}px)`;
     clAnimId=requestAnimationFrame(step);
   }
@@ -1142,15 +1208,16 @@ function startRot(){
   step();
 }
 
-/* ═══ ZOOM SCROLL — FIX: guard for sc out of bounds ═══ */
+/* ═══ ZOOM SCROLL (desktop only) ═══ */
 function initZoom(){
   const outer=g('zoom-outer');if(!outer)return;
   window.addEventListener('scroll',()=>{
+    // Skip on mobile — zoom-outer is hidden via CSS, no point computing
+    if(window.innerWidth<=960)return;
     const rect=outer.getBoundingClientRect();
     const total=outer.offsetHeight-window.innerHeight;
     const sc=-rect.top;
     if(sc<=0||sc>=total){
-      // Show first step before entering, last step after leaving
       const showIdx=sc<=0?0:D.zoomSteps.length-1;
       D.zoomSteps.forEach((_,i)=>{
         [g(`zs${i}`),g(`zd${i}`),g(`zsi${i}`)].forEach(el=>{if(el)el.classList.toggle('on',i===showIdx);});
@@ -1185,7 +1252,7 @@ function animC(el,target,suf){let s=0;(function f(ts){if(!s)s=ts;const p=Math.mi
 const cObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){animC(e.target,+e.target.dataset.count,e.target.dataset.suf||'');cObs.unobserve(e.target);}}),{threshold:.5});
 function observeCounters(){document.querySelectorAll('[data-count]').forEach(el=>cObs.observe(el));}
 
-/* ═══ CURSOR — FIX: use event delegation so dynamic elements work ═══ */
+/* ═══ CURSOR ═══ */
 const cur=g('cur'),curR=g('cur-r');
 if(cur&&curR){
   document.addEventListener('mousemove',e=>{
@@ -1195,27 +1262,39 @@ if(cur&&curR){
   });
   document.addEventListener('mousedown',()=>cur.style.transform='translate(-50%,-50%) scale(.4)');
   document.addEventListener('mouseup',()=>cur.style.transform='translate(-50%,-50%) scale(1)');
-}
-function initCursorDelegation(){
   document.addEventListener('mouseover',e=>{
-    if(!curR)return;
     if(e.target.closest('a,button')){curR.style.width='48px';curR.style.height='48px';curR.style.opacity='.8';}
   });
   document.addEventListener('mouseout',e=>{
-    if(!curR)return;
     if(e.target.closest('a,button')){curR.style.width='34px';curR.style.height='34px';curR.style.opacity='.6';}
   });
 }
 
-/* ═══ NAV — FIX: dedicated overlay, hamburger animates, ESC closes ═══ */
+/* ═══ NAV — FIX: clean open/close with body scroll lock ═══ */
 window.addEventListener('scroll',()=>{g('nav').classList.toggle('scrolled',scrollY>70);},{passive:true});
 const hbgBtn=g('hbg');
 const navOverlay=g('nav-overlay');
-function openMobileNav(){hbgBtn.classList.add('active');navOverlay.classList.add('open');document.body.style.overflow='hidden';}
-function closeMobileNav(){hbgBtn.classList.remove('active');navOverlay.classList.remove('open');document.body.style.overflow='';}
-hbgBtn.addEventListener('click',()=>navOverlay.classList.contains('open')?closeMobileNav():openMobileNav());
+
+function openMobileNav(){
+  hbgBtn.classList.add('active');
+  navOverlay.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeMobileNav(){
+  hbgBtn.classList.remove('active');
+  navOverlay.classList.remove('open');
+  document.body.style.overflow='';
+}
+
+hbgBtn.addEventListener('click',()=>{
+  navOverlay.classList.contains('open')?closeMobileNav():openMobileNav();
+});
+// Close button inside overlay
+g('nav-overlay-close')?.addEventListener('click',closeMobileNav);
+// All links inside overlay close it
 navOverlay.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMobileNav));
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMobileNav();});
+// ESC key
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMobileNav();g('admin-panel').classList.remove('open');}});
 
 /* ═══ ADMIN ═══ */
 g('admin-trigger').addEventListener('click',()=>g('admin-panel').classList.add('open'));
@@ -1231,10 +1310,9 @@ document.querySelectorAll('.a-tab').forEach(tab=>{
   });
 });
 
-/* ═══ APPLY FUNCTIONS — FIX: applyHero properly updates h1 parts ═══ */
+/* ═══ APPLY FUNCTIONS ═══ */
 function applyHero(){
   g('hero-tag').textContent=g('e-tag').value;
-  // Update individual h1 parts without overwriting child elements
   const h1=g('hero-h1');
   if(h1){
     const firstNode=h1.firstChild;
@@ -1271,7 +1349,6 @@ function saveSvc(i){
   s('services-grid',D.services.map((sv,j)=>`<div class="svc-card rv d${Math.min(j+1,5)}"><div class="svc-num">${sv.n}</div><div class="svc-ic">${sv.ic}</div><div class="svc-title">${sv.t}</div><div class="svc-desc">${sv.d}</div><div class="svc-tags">${sv.tags.map(t=>`<span class="svc-tag">${t}</span>`).join('')}</div></div>`).join(''));
   reObserve();
 }
-
 function renderProdsAdmin(){
   s('prods-admin',D.products.map((p,i)=>`<div class="a-card"><h4>Product ${i+1} — ${p.t}</h4>
     <div class="a-grid"><div class="a-field"><label class="a-lbl">Icon</label><input class="a-in" id="pi${i}" value="${p.ic}"></div>
@@ -1284,7 +1361,6 @@ function saveProd(i){
   s('prod-track',D.products.map(p=>`<div class="prod-card"><div class="prod-card-top"><div class="pc-num">${p.n}</div><div class="prod-card-ic">${p.ic}</div><div class="prod-card-title">${p.t}</div><div class="prod-card-desc">${p.d}</div></div><ul class="prod-card-feats">${p.f.map(f=>`<li>${f}</li>`).join('')}</ul></div>`).join(''));
   initProdScroll();
 }
-
 function renderClsAdmin(){
   s('cls-admin',D.clients.map((c,i)=>`<div class="a-card"><h4>Client ${i+1}</h4>
     <div class="a-grid">
@@ -1295,15 +1371,11 @@ function renderClsAdmin(){
     <button class="a-save" onclick="saveCl(${i})">Save</button></div>`).join(''));
 }
 function saveCl(i){
-  D.clients[i].n=g(`cn${i}`).value;
-  D.clients[i].l=g(`cll${i}`).value;
-  D.clients[i].t=g(`ctt${i}`).value;
-  // Re-render client tracks
+  D.clients[i].n=g(`cn${i}`).value;D.clients[i].l=g(`cll${i}`).value;D.clients[i].t=g(`ctt${i}`).value;
   const mkCl=arr=>arr.map(c=>`<div class="cl-card"><div class="cl-name">${c.n}</div><div class="cl-loc">${c.l}</div><div class="cl-badge">${c.t}</div></div>`).join('');
   s('cl-track',mkCl([...D.clients,...D.clients,...D.clients]));
   s('cl-track2',mkCl([...D.clients].slice().reverse().concat([...D.clients].slice().reverse()).concat([...D.clients].slice().reverse())));
 }
-
 function renderTsAdmin(){
   s('ts-admin',D.testimonials.map((t,i)=>`<div class="a-card"><h4>Testimonial ${i+1}</h4>
     <div class="a-field"><label class="a-lbl">Quote</label><textarea class="a-ta" id="tq${i}">${t.q}</textarea></div>
