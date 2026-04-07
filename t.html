@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Joshlee Solutions Africa | Developing Solutions for The Future</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -43,51 +43,31 @@ body{font-family:'Outfit',sans-serif;background:var(--white);color:var(--ink);ov
 /* CURSOR */
 #cur{position:fixed;width:9px;height:9px;background:var(--gold2);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:transform .08s;mix-blend-mode:multiply;}
 #cur-r{position:fixed;width:34px;height:34px;border:1.5px solid var(--purple2);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:all .13s ease;opacity:.6;}
+@media(pointer:coarse){#cur,#cur-r{display:none;}body{cursor:auto;}}
 
-/* NAV - Fixed for Android */
+/* ═══════════════ NAV ═══════════════ */
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all .4s;}
-.nav-wrap{max-width:1360px;margin:0 auto;padding:0 56px;height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
-nav.scrolled{background:rgba(254,252,255,.98);border-bottom:1px solid var(--rule);box-shadow:var(--shadow);}
-
-/* On mobile we disable heavy blur to prevent distortion */
-@media (max-width:960px) {
-  nav.scrolled{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(254,252,255,.98);}
-}
-
-/* Logo */
-.logo{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0;flex-shrink:1;}
-.logo-icon{width:42px;height:42px;min-width:42px;background:linear-gradient(135deg,var(--purple),var(--purple2));border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(107,50,200,.35);flex-shrink:0;}
-.logo-icon::after{content:'J';font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold3);position:relative;z-index:1;}
-.logo-text{line-height:1.15;min-width:0;overflow:hidden;}
-.logo-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--ink);letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nav-wrap{max-width:1360px;margin:0 auto;padding:0 24px;height:70px;display:flex;align-items:center;justify-content:space-between;}
+nav.scrolled{background:rgba(254,252,255,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--rule);box-shadow:var(--shadow);}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
+.logo svg{width:40px;height:40px;flex-shrink:0;}
+.logo-text{line-height:1.15;min-width:0;}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;color:var(--ink);letter-spacing:.3px;white-space:nowrap;}
 .logo-name em{color:var(--purple2);font-style:normal;}
-.logo-sub{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);font-weight:400;white-space:nowrap;}
-
-/* Desktop nav links */
-.nav-links{display:flex;align-items:center;gap:4px;list-style:none;flex-shrink:0;}
-.nav-links a{padding:7px 14px;border-radius:8px;color:var(--ink3);text-decoration:none;font-size:13.5px;font-weight:400;transition:all .2s;white-space:nowrap;}
+.logo-sub{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);font-weight:400;white-space:nowrap;}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none;}
+.nav-links a{padding:7px 14px;border-radius:8px;color:var(--ink3);text-decoration:none;font-size:13.5px;font-weight:400;transition:all .2s;}
 .nav-links a:hover{background:var(--purple-light);color:var(--purple2);}
 .nav-cta{background:linear-gradient(135deg,var(--purple),var(--purple2))!important;color:#fff!important;padding:9px 22px!important;border-radius:8px!important;font-weight:600!important;box-shadow:0 4px 16px rgba(107,50,200,.3)!important;letter-spacing:.2px!important;}
 .nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(107,50,200,.4)!important;background:linear-gradient(135deg,var(--purple2),var(--purple3))!important;}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hbg span{width:22px;height:1.5px;background:var(--ink);border-radius:2px;display:block;}
 
-/* Hamburger */
-.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px;flex-shrink:0;z-index:1001;}
-.hbg span{width:22px;height:1.5px;background:var(--ink);border-radius:2px;transition:all .3s;display:block;}
-.hbg.active span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
-.hbg.active span:nth-child(2){opacity:0;}
-.hbg.active span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
-nav:not(.scrolled) .hbg span{background:#fff;}
+/* Mobile nav overlay */
+.nav-links.mob{display:flex!important;flex-direction:column;position:fixed;inset:0;background:var(--white);align-items:center;justify-content:center;gap:24px;z-index:999;}
+.nav-links.mob a{font-size:22px;color:var(--ink);}
 
-/* Mobile nav overlay - No heavy blur */
-.nav-overlay{display:none;position:fixed;inset:0;background:rgba(10,8,18,.98);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:20px 0;overflow-y:auto;-webkit-overflow-scrolling:touch;}
-.nav-overlay.open{display:flex;}
-.nav-overlay li{list-style:none;width:100%;text-align:center;}
-.nav-overlay a{display:block;padding:18px 24px;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:rgba(255,255,255,.85);text-decoration:none;transition:all .2s;border-bottom:1px solid rgba(255,255,255,.08);}
-.nav-overlay a:hover,.nav-overlay a:active{color:var(--gold3);}
-.nav-overlay .nav-cta{background:linear-gradient(135deg,var(--purple),var(--purple2))!important;color:#fff!important;border-radius:0!important;font-weight:700!important;font-size:22px!important;}
-.nav-overlay-close{position:absolute;top:24px;right:24px;background:none;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:17px;padding:8px 18px;border-radius:8px;cursor:pointer;font-family:'Outfit',sans-serif;}
-
-/* The rest of your styles (hero, about, services, etc.) are unchanged */
+/* ═══════════════ HERO ═══════════════ */
 #home{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden;background:var(--black);}
 .hero-bg{position:absolute;inset:0;background:linear-gradient(145deg,var(--purple-deeper) 0%,var(--purple-dark) 30%,var(--black2) 60%,var(--black) 100%);}
 .hero-mesh{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 80% 40%,rgba(107,50,200,.25) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 20% 70%,rgba(201,150,12,.1) 0%,transparent 50%),radial-gradient(ellipse 40% 40% at 60% 10%,rgba(75,29,143,.3) 0%,transparent 50%);}
@@ -95,22 +75,24 @@ nav:not(.scrolled) .hbg span{background:#fff;}
 .hero-particles{position:absolute;inset:0;pointer-events:none;}
 .hp{position:absolute;border-radius:50%;background:var(--gold2);animation:hpFloat linear infinite;opacity:0;}
 @keyframes hpFloat{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:.6}90%{opacity:.2}100%{transform:translateY(-120px) scale(1);opacity:0}}
-.hero-content{position:relative;z-index:2;max-width:1360px;margin:0 auto;padding:100px 56px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;width:100%;}
+.hero-content{position:relative;z-index:2;max-width:1360px;margin:0 auto;padding:100px 24px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;width:100%;}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;background:rgba(201,150,12,.12);border:1px solid rgba(201,150,12,.25);padding:6px 16px;border-radius:100px;margin-bottom:28px;opacity:0;animation:fUp .8s .15s forwards;}
 .hero-eyebrow span{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold3);}
 .hero-eyebrow-dot{width:6px;height:6px;background:var(--gold2);border-radius:50%;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.6)}}
-.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,6.5vw,88px);font-weight:700;line-height:.98;letter-spacing:-2px;color:#fff;margin-bottom:28px;opacity:0;animation:fUp .8s .3s forwards;}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,6.5vw,88px);font-weight:700;line-height:.98;letter-spacing:-2px;color:#fff;margin-bottom:28px;opacity:0;animation:fUp .8s .3s forwards;}
 .hero-h1 em{font-style:italic;color:var(--gold3);display:block;}
 .hero-h1 .small{font-size:.55em;font-weight:300;display:block;letter-spacing:0;color:rgba(255,255,255,.55);}
 .hero-desc{font-size:16px;line-height:1.8;color:rgba(255,255,255,.55);max-width:460px;margin-bottom:44px;font-weight:300;opacity:0;animation:fUp .8s .45s forwards;}
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fUp .8s .6s forwards;}
-.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--black);padding:14px 36px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;transition:all .3s;box-shadow:0 6px 24px rgba(201,150,12,.3);letter-spacing:.2px;display:inline-block;}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--black);padding:14px 36px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;transition:all .3s;box-shadow:0 6px 24px rgba(201,150,12,.3);letter-spacing:.2px;}
 .btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(201,150,12,.45);}
-.btn-outline{border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);padding:14px 36px;border-radius:8px;font-size:14px;font-weight:400;text-decoration:none;transition:all .3s;display:inline-block;}
+.btn-outline{border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);padding:14px 36px;border-radius:8px;font-size:14px;font-weight:400;text-decoration:none;transition:all .3s;}
 .btn-outline:hover{border-color:var(--gold3);color:var(--gold3);}
 .hero-right{opacity:0;animation:fRight .9s .5s forwards;position:relative;}
 @keyframes fRight{from{opacity:0;transform:translateX(36px)}to{opacity:1;transform:translateX(0)}}
+
+/* Terminal card */
 .hero-terminal{background:rgba(26,8,56,.85);border:1px solid rgba(107,50,200,.4);border-radius:16px;overflow:hidden;backdrop-filter:blur(20px);box-shadow:0 24px 80px rgba(0,0,0,.4);}
 .terminal-bar{background:rgba(107,50,200,.2);padding:12px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(107,50,200,.2);}
 .tb-dot{width:10px;height:10px;border-radius:50%;}
@@ -129,6 +111,8 @@ nav:not(.scrolled) .hbg span{background:#fff;}
 .hsm:hover{background:rgba(107,50,200,.2);border-color:rgba(107,50,200,.5);}
 .hsm-ic{font-size:18px;margin-bottom:6px;}
 .hsm-t{font-size:12px;font-weight:600;color:rgba(255,255,255,.8);letter-spacing:.2px;}
+
+/* Floating badge */
 .hero-badge{position:absolute;bottom:-18px;left:-24px;background:var(--gold);border-radius:12px;padding:12px 18px;box-shadow:0 8px 28px rgba(201,150,12,.35);display:flex;align-items:center;gap:10px;animation:float 4s ease-in-out infinite;}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 .hb-ic{font-size:20px;}
@@ -139,20 +123,27 @@ nav:not(.scrolled) .hbg span{background:#fff;}
 @keyframes stem{0%,100%{opacity:.3;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
 @keyframes fUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 
-/* All other sections (ticker, about, services, products, clients, features, pullquote, technology, stats, values, rotation, cta, testimonials, contact, footer, admin) are exactly as in your original code. I have kept them full below. */
+/* ═══════════════ TICKER ═══════════════ */
+.ticker{background:linear-gradient(90deg,var(--purple-dark),var(--purple),var(--purple-dark));padding:14px 0;overflow:hidden;border-top:1px solid rgba(107,50,200,.3);}
+.t-track{display:flex;gap:0;width:max-content;animation:tk 28s linear infinite;}
+.t-track:hover{animation-play-state:paused;}
+@keyframes tk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.t-item{display:flex;align-items:center;gap:10px;padding:0 40px;border-right:1px solid rgba(255,255,255,.12);font-size:12px;font-weight:500;color:rgba(255,255,255,.7);letter-spacing:1px;white-space:nowrap;}
+.t-item .gem{color:var(--gold3);font-size:8px;}
 
-.wrap{max-width:1360px;margin:0 auto;padding:0 56px;}
-.sec{padding:110px 0;}
+/* ═══════════════ SHARED ═══════════════ */
+.wrap{max-width:1360px;margin:0 auto;padding:0 24px;}
+.sec{padding:80px 0;}
 .sec-eye{display:flex;align-items:center;gap:10px;font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple2);margin-bottom:14px;}
 .sec-eye::before{content:'';width:20px;height:1.5px;background:linear-gradient(90deg,var(--purple2),var(--gold2));}
-.sec-h{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.8vw,52px);font-weight:700;line-height:1.08;letter-spacing:-.8px;color:var(--ink);margin-bottom:16px;}
+.sec-h{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.8vw,52px);font-weight:700;line-height:1.08;letter-spacing:-.8px;color:var(--ink);margin-bottom:16px;}
 .sec-h em{color:var(--purple2);font-style:italic;}
 .sec-p{font-size:15.5px;line-height:1.8;color:var(--ink3);font-weight:300;max-width:500px;}
 .divider{height:1px;background:linear-gradient(90deg,transparent,var(--rule),transparent);}
 
-/* ABOUT */
+/* ═══════════════ ABOUT ═══════════════ */
 #about{background:var(--cream);}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
 .about-vis{position:relative;}
 .about-card{background:#fff;border-radius:20px;overflow:hidden;border:1px solid var(--rule);box-shadow:var(--shadow3);}
 .ac-top{background:linear-gradient(135deg,var(--purple-dark),var(--purple));padding:36px;position:relative;overflow:hidden;}
@@ -165,7 +156,7 @@ nav:not(.scrolled) .hbg span{background:#fff;}
 .acs:hover{background:var(--purple-light);}
 .acs-n{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--purple2);line-height:1;}
 .acs-l{font-size:11.5px;color:var(--ink3);margin-top:3px;font-weight:400;}
-.about-float{position:absolute;top:-20px;right:-20px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:14px;padding:14px 20px;box-shadow:0 8px 28px rgba(201,150,12,.4);animation:float 3.5s ease-in-out infinite;}
+.about-float{position:absolute;top:-20px;right:-20px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:14px;padding:14px 20px;box-shadow:0 8px 28px rgba(201,150,12,.4);animation:float 3.5s ease-in-out infinite;z-index:2;}
 .af-n{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--black);line-height:1;}
 .af-l{font-size:11px;color:rgba(10,8,18,.7);margin-top:2px;font-weight:500;}
 .about-pts{margin-top:36px;display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule);}
@@ -182,7 +173,7 @@ nav:not(.scrolled) .hbg span{background:#fff;}
 .mv-card.v .mv-label{color:var(--gold);}
 .mv-text{font-size:13.5px;color:var(--ink2);line-height:1.6;font-weight:300;}
 
-/* SERVICES */
+/* ═══════════════ SERVICES ═══════════════ */
 #services{background:var(--white);}
 .services-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:64px;}
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
@@ -200,16 +191,16 @@ nav:not(.scrolled) .hbg span{background:#fff;}
 .svc-tags{display:flex;flex-wrap:wrap;gap:6px;}
 .svc-tag{font-size:11px;background:var(--purple-light);border:1px solid rgba(107,50,200,.15);color:var(--purple2);padding:3px 10px;border-radius:100px;font-weight:500;}
 
-/* PRODUCTS */
-#products{background:var(--cream);padding:110px 0;}
+/* ═══════════════ PRODUCTS horizontal scroll ═══════════════ */
+#products{background:var(--cream);padding:80px 0;}
 .prod-hd{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:56px;}
 .prod-scroll-outer{position:relative;overflow:hidden;}
-.prod-scroll-outer::before,.prod-scroll-outer::after{content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none;}
+.prod-scroll-outer::before,.prod-scroll-outer::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none;}
 .prod-scroll-outer::before{left:0;background:linear-gradient(90deg,var(--cream),transparent);}
 .prod-scroll-outer::after{right:0;background:linear-gradient(-90deg,var(--cream),transparent);}
-.prod-track{display:flex;gap:20px;padding:10px 56px 40px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.prod-track{display:flex;gap:20px;padding:10px 24px 40px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .prod-track::-webkit-scrollbar{display:none;}
-.prod-card{background:#fff;border:1px solid var(--rule);border-radius:20px;flex-shrink:0;width:300px;scroll-snap-align:start;transition:all .4s;overflow:hidden;}
+.prod-card{background:#fff;border:1px solid var(--rule);border-radius:20px;flex-shrink:0;width:280px;scroll-snap-align:start;transition:all .4s;overflow:hidden;}
 .prod-card:hover{transform:translateY(-8px);box-shadow:var(--shadow3);border-color:rgba(107,50,200,.3);}
 .prod-card-top{padding:28px 28px 0;position:relative;}
 .pc-num{position:absolute;top:20px;right:22px;font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:rgba(107,50,200,.07);line-height:1;pointer-events:none;}
@@ -220,36 +211,37 @@ nav:not(.scrolled) .hbg span{background:#fff;}
 .prod-card-feats li{font-size:12.5px;color:var(--ink3);padding:6px 0;border-bottom:1px solid var(--rule2);list-style:none;display:flex;align-items:center;gap:8px;}
 .prod-card-feats li:last-child{border-bottom:none;}
 .prod-card-feats li::before{content:'';width:5px;height:5px;background:var(--gold2);border-radius:50%;flex-shrink:0;}
-.prod-ctrls{display:flex;align-items:center;gap:14px;padding:0 56px;margin-top:8px;}
-.pc-btn{width:42px;height:42px;min-width:42px;border-radius:50%;border:1.5px solid var(--rule);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.25s;color:var(--ink);font-size:16px;flex-shrink:0;}
+.prod-ctrls{display:flex;align-items:center;gap:14px;padding:0 24px;}
+.pc-btn{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--rule);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.25s;color:var(--ink);font-size:16px;}
 .pc-btn:hover{background:linear-gradient(135deg,var(--purple),var(--purple2));border-color:transparent;color:#fff;box-shadow:0 4px 16px rgba(107,50,200,.3);}
-.pc-bar{flex:1;height:2px;background:var(--rule);border-radius:2px;overflow:hidden;position:relative;min-width:0;}
-.pc-thumb{height:100%;background:linear-gradient(90deg,var(--purple2),var(--gold2));border-radius:2px;position:absolute;left:0;top:0;transition:width .2s,left .1s;}
+.pc-bar{flex:1;height:2px;background:var(--rule);border-radius:2px;overflow:hidden;position:relative;}
+.pc-thumb{height:100%;background:linear-gradient(90deg,var(--purple2),var(--gold2));border-radius:2px;width:25%;position:absolute;left:0;transition:left .1s;}
 
-/* CLIENTS */
+/* ═══════════════ CLIENTS ═══════════════ */
 #clients{background:var(--white);}
 .clients-layout{display:grid;grid-template-columns:320px 1fr;gap:80px;align-items:start;}
 .cl-runner{overflow:hidden;position:relative;margin-top:32px;}
-.cl-runner::before,.cl-runner::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;}
+.cl-runner::before,.cl-runner::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none;}
 .cl-runner::before{left:0;background:linear-gradient(90deg,var(--white),transparent);}
 .cl-runner::after{right:0;background:linear-gradient(-90deg,var(--white),transparent);}
 .cl-track{display:flex;gap:16px;width:max-content;}
-.cl-card{background:var(--cream);border:1px solid var(--rule);border-radius:14px;padding:22px 26px;flex-shrink:0;min-width:220px;transition:all .3s;}
+.cl-card{background:var(--cream);border:1px solid var(--rule);border-radius:14px;padding:22px 26px;flex-shrink:0;min-width:200px;transition:all .3s;}
 .cl-card:hover{border-color:rgba(107,50,200,.35);transform:translateY(-4px);box-shadow:var(--shadow2);background:#fff;}
 .cl-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:4px;line-height:1.2;}
 .cl-loc{font-size:11.5px;color:var(--ink4);margin-bottom:10px;font-weight:300;}
 .cl-badge{display:inline-block;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--purple2);background:var(--purple-light);border:1px solid rgba(107,50,200,.2);padding:3px 10px;border-radius:100px;}
 
-/* FEATURES */
+/* ═══════════════ ZOOM SCROLL ═══════════════ */
 #features{background:var(--cream);}
 .zoom-outer{height:500vh;position:relative;}
 .zoom-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--cream);}
 .z-rings{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;}
 .z-ring{position:absolute;border-radius:50%;border:1px solid rgba(107,50,200,.1);}
-.z-step{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.88);opacity:0;transition:opacity .55s,transform .55s;max-width:680px;text-align:center;padding:0 48px;width:min(680px,90vw);}
+/* FIX: z-step uses % width so it never overflows on any screen */
+.z-step{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.88);opacity:0;transition:opacity .55s,transform .55s;width:calc(100% - 48px);max-width:680px;text-align:center;padding:0 16px;}
 .z-step.on{opacity:1;transform:translate(-50%,-50%) scale(1);}
 .z-step-tag{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--purple2);font-weight:600;margin-bottom:18px;display:block;}
-.z-step-h{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,6vw,76px);font-weight:700;letter-spacing:-2px;color:var(--ink);line-height:1.0;margin-bottom:18px;}
+.z-step-h{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,6vw,76px);font-weight:700;letter-spacing:-2px;color:var(--ink);line-height:1.0;margin-bottom:18px;}
 .z-step-h em{color:var(--purple2);font-style:italic;}
 .z-step-p{font-size:clamp(14px,2vw,17px);color:var(--ink3);line-height:1.75;font-weight:300;}
 .z-prog{position:absolute;bottom:44px;left:50%;transform:translateX(-50%);display:flex;gap:8px;}
@@ -261,32 +253,32 @@ nav:not(.scrolled) .hbg span{background:#fff;}
 .z-si-bar{width:18px;height:1.5px;background:var(--purple2);transition:.3s;}
 .z-si.on .z-si-bar{width:30px;}
 .z-si-lbl{font-size:11px;font-weight:500;color:var(--ink3);white-space:nowrap;}
-.chapters-mobile{display:none;}
-.chap-card{background:#fff;border:1px solid var(--rule);border-radius:16px;padding:28px;margin-bottom:16px;}
-.chap-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--purple2);font-weight:600;margin-bottom:10px;display:block;}
-.chap-h{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);line-height:1.1;margin-bottom:10px;}
-.chap-h em{color:var(--purple2);font-style:italic;}
-.chap-p{font-size:14px;color:var(--ink3);line-height:1.7;font-weight:300;}
-.chap-num{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:700;color:rgba(107,50,200,.06);float:right;line-height:1;margin-left:10px;}
 
-/* PULL QUOTE */
-#pullquote{background:linear-gradient(135deg,var(--purple-deeper),var(--purple-dark),var(--black2));padding:100px 0;}
+/* ═══════════════ PULL QUOTE ═══════════════ */
+#pullquote{background:linear-gradient(135deg,var(--purple-deeper),var(--purple-dark),var(--black2));padding:80px 0;}
 .pq-inner{text-align:center;}
-.pq-mark{font-family:'Cormorant Garamond',serif;font-size:140px;color:rgba(201,150,12,.15);line-height:.5;display:block;}
-.pq-text{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,4vw,48px);font-weight:300;line-height:1.4;color:rgba(255,255,255,.9);font-style:italic;max-width:800px;margin:0 auto;}
+.pq-mark{font-family:'Cormorant Garamond',serif;font-size:clamp(80px,12vw,140px);color:rgba(201,150,12,.15);line-height:.5;display:block;}
+.pq-text{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3.5vw,48px);font-weight:300;line-height:1.4;color:rgba(255,255,255,.9);font-style:italic;max-width:800px;margin:0 auto;}
 .pq-text em{color:var(--gold3);font-style:normal;font-weight:600;}
 .pq-attr{margin-top:32px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3);}
 
-/* TECHNOLOGY */
+/* ═══════════════ TECHNOLOGY — 2D ORBITAL ═══════════════ */
 #technology{background:var(--white);}
 .tech-layout{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;}
-.tech-stage{height:460px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-.sp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:100%;}
-.sp-c{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:15px 17px;box-shadow:var(--shadow);transition:.3s;cursor:default;}
-.sp-c:hover{border-color:rgba(107,50,200,.35);box-shadow:var(--shadow2);transform:translateY(-3px);}
-.sp-c .ic{font-size:20px;margin-bottom:5px;}
-.sp-c .t{font-size:11.5px;font-weight:700;color:var(--ink);}
-.sp-c .d{font-size:10.5px;color:var(--ink4);margin-top:1px;}
+/* Replaced 3D spiral with a 2D orbital that works on all screens */
+.tech-stage{position:relative;width:100%;padding-bottom:100%;overflow:hidden;border-radius:50%;flex-shrink:0;}
+.tech-orbit-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.orbit-center{position:absolute;width:60px;height:60px;background:linear-gradient(135deg,var(--purple),var(--purple2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 40px rgba(107,50,200,.4);z-index:3;}
+.orbit-ring{position:absolute;border-radius:50%;border:1px dashed rgba(107,50,200,.18);}
+.orbit-ring-1{width:55%;height:55%;}
+.orbit-ring-2{width:82%;height:82%;}
+.orbit-ring-3{width:100%;height:100%;}
+/* Each card is placed via JS using % from center */
+.orb-card{position:absolute;background:#fff;border:1px solid var(--rule);border-radius:10px;padding:10px 12px;width:110px;box-shadow:var(--shadow);transform:translate(-50%,-50%);transition:.3s;z-index:2;text-align:center;}
+.orb-card:hover{border-color:rgba(107,50,200,.35);box-shadow:var(--shadow2);z-index:4;}
+.orb-card .ic{font-size:18px;margin-bottom:4px;}
+.orb-card .t{font-size:11px;font-weight:700;color:var(--ink);}
+.orb-card .d{font-size:10px;color:var(--ink4);margin-top:1px;}
 .tech-pts{border-top:1px solid var(--rule);margin-top:4px;}
 .tech-pt{display:flex;gap:16px;align-items:flex-start;padding:22px 0;border-bottom:1px solid var(--rule2);}
 .tech-pt:last-child{border-bottom:none;}
@@ -294,40 +286,40 @@ nav:not(.scrolled) .hbg span{background:#fff;}
 .tp-h{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:3px;}
 .tp-p{font-size:13px;color:var(--ink3);line-height:1.6;font-weight:300;}
 
-/* STATS */
+/* ═══════════════ STATS ═══════════════ */
 #stats{background:linear-gradient(135deg,var(--purple-deeper),var(--purple-dark),var(--purple));padding:0;}
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid rgba(255,255,255,.08);}
-.stat-col{padding:56px 44px;border-right:1px solid rgba(255,255,255,.08);position:relative;overflow:hidden;transition:.3s;}
+.stat-col{padding:48px 32px;border-right:1px solid rgba(255,255,255,.08);position:relative;overflow:hidden;transition:.3s;}
 .stat-col:hover{background:rgba(201,150,12,.06);}
 .stat-col::after{content:attr(data-l);position:absolute;right:-12px;bottom:-20px;font-family:'Cormorant Garamond',serif;font-size:80px;font-weight:700;color:rgba(255,255,255,.04);pointer-events:none;white-space:nowrap;}
-.stat-n{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:700;color:var(--gold3);line-height:1;letter-spacing:-2px;}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,64px);font-weight:700;color:var(--gold3);line-height:1;letter-spacing:-2px;}
 .stat-l{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:10px;}
 
-/* ROTATION */
+/* ═══════════════ ROTATION ═══════════════ */
 #rotation{background:var(--cream);padding:72px 0;overflow:hidden;}
 .rot-runner{overflow:hidden;position:relative;margin-top:44px;}
-.rot-runner::before,.rot-runner::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none;}
+.rot-runner::before,.rot-runner::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;}
 .rot-runner::before{left:0;background:linear-gradient(90deg,var(--cream),transparent);}
 .rot-runner::after{right:0;background:linear-gradient(-90deg,var(--cream),transparent);}
 .rot-track{display:flex;gap:14px;width:max-content;}
-.rot-c{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:16px 20px;flex-shrink:0;min-width:155px;display:flex;flex-direction:column;align-items:center;gap:7px;transition:.3s;}
+.rot-c{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:16px 20px;flex-shrink:0;min-width:140px;display:flex;flex-direction:column;align-items:center;gap:7px;transition:.3s;}
 .rot-c:hover{background:var(--purple-light);border-color:rgba(107,50,200,.3);transform:translateY(-4px);box-shadow:var(--shadow2);}
 .rot-c .ic{font-size:24px;}
 .rot-c .nm{font-size:12px;font-weight:500;color:var(--ink2);text-align:center;}
 
-/* CTA */
+/* ═══════════════ PARALLAX CTA ═══════════════ */
 #cta-band{position:relative;height:460px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
 .cta-dark-bg{position:absolute;inset:0;background:linear-gradient(145deg,var(--black) 0%,var(--black2) 40%,var(--purple-deeper) 70%,var(--purple-dark) 100%);}
 .cta-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(107,50,200,.2) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);}
 .cta-gold-accent{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;height:200px;background:radial-gradient(ellipse 60% 60% at 50% 100%,rgba(201,150,12,.12) 0%,transparent 70%);}
 .cta-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(107,50,200,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(107,50,200,.08) 1px,transparent 1px);background-size:56px 56px;}
 .cta-layer{position:absolute;width:105%;left:-2.5%;will-change:transform;}
-.cta-content{position:relative;z-index:4;text-align:center;padding:0 48px;}
-.cta-content h2{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,6vw,80px);font-weight:700;color:#fff;letter-spacing:-2px;line-height:1.0;margin-bottom:14px;}
+.cta-content{position:relative;z-index:4;text-align:center;padding:0 24px;}
+.cta-content h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,6vw,80px);font-weight:700;color:#fff;letter-spacing:-2px;line-height:1.0;margin-bottom:14px;}
 .cta-content h2 em{font-style:italic;color:var(--gold3);}
 .cta-content p{font-size:16px;color:rgba(255,255,255,.45);margin-bottom:36px;font-weight:300;}
 
-/* VALUES */
+/* ═══════════════ VALUES ═══════════════ */
 #values{background:var(--white);}
 .values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:56px;}
 .val-card{border:1px solid var(--rule);border-radius:16px;padding:28px;transition:all .35s;background:#fff;}
@@ -340,7 +332,7 @@ nav:not(.scrolled) .hbg span{background:#fff;}
 .val-h{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px;}
 .val-p{font-size:13px;color:var(--ink3);line-height:1.65;font-weight:300;}
 
-/* TESTIMONIALS */
+/* ═══════════════ TESTIMONIALS ═══════════════ */
 #testimonials{background:var(--cream);}
 .test-layout{display:grid;grid-template-columns:280px 1fr;gap:80px;align-items:start;}
 .test-cards{display:flex;flex-direction:column;gap:20px;}
@@ -354,7 +346,7 @@ nav:not(.scrolled) .hbg span{background:#fff;}
 .test-nm{font-size:13.5px;font-weight:700;color:var(--ink);}
 .test-rl{font-size:12px;color:var(--ink4);margin-top:1px;font-weight:300;}
 
-/* CONTACT */
+/* ═══════════════ CONTACT ═══════════════ */
 #contact{background:var(--white);}
 .contact-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:80px;}
 .ci-list{margin-top:36px;border-top:1px solid var(--rule);}
@@ -362,18 +354,18 @@ nav:not(.scrolled) .hbg span{background:#fff;}
 .ci-item:last-child{border-bottom:none;}
 .ci-ic{width:38px;height:38px;background:var(--purple-light);border:1px solid rgba(107,50,200,.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
 .ci-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple2);margin-bottom:3px;}
-.ci-val{font-size:14px;color:var(--ink);font-weight:400;}
-.cform{background:var(--cream);border:1px solid var(--rule);border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:14px;}
+.ci-val{font-size:14px;color:var(--ink);font-weight:400;word-break:break-word;}
+.cform{background:var(--cream);border:1px solid var(--rule);border-radius:20px;padding:32px;}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.fg{display:flex;flex-direction:column;gap:6px;}
+.fg{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
 .flbl{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);}
 .fi,.fs,.ft{background:#fff;border:1.5px solid var(--rule);border-radius:8px;padding:12px 15px;color:var(--ink);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:.25s;width:100%;font-weight:300;}
 .fi:focus,.fs:focus,.ft:focus{border-color:var(--purple2);box-shadow:0 0 0 3px rgba(107,50,200,.08);}
 .ft{resize:vertical;min-height:115px;}
-.fsub{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;padding:14px 36px;border-radius:8px;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:.3s;align-self:flex-start;box-shadow:0 4px 18px rgba(107,50,200,.3);}
+.fsub{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;padding:14px 36px;border-radius:8px;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:.3s;box-shadow:0 4px 18px rgba(107,50,200,.3);}
 .fsub:hover{background:linear-gradient(135deg,var(--purple2),var(--purple3));transform:translateY(-1px);box-shadow:0 8px 28px rgba(107,50,200,.4);}
 
-/* FOOTER */
+/* ═══════════════ FOOTER ═══════════════ */
 footer{background:var(--black);padding:72px 0 36px;}
 .ft-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:60px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.06);}
 .ft-brand .logo{margin-bottom:18px;display:inline-flex;}
@@ -386,17 +378,14 @@ footer{background:var(--black);padding:72px 0 36px;}
 .ft-bottom p{font-size:12px;color:rgba(255,255,255,.2);}
 .admin-btn{background:none;border:none;color:rgba(255,255,255,.1);font-size:12px;cursor:pointer;padding:4px 8px;border-radius:4px;transition:.2s;font-family:'Outfit',sans-serif;letter-spacing:.5px;}
 .admin-btn:hover{color:rgba(255,255,255,.3);}
-.ft-logo-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:#fff;letter-spacing:.3px;}
-.ft-logo-name em{color:var(--purple2);font-style:normal;}
-.ft-logo-sub{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);font-weight:400;}
 
-/* REVEALS */
+/* ═══════════════ REVEALS ═══════════════ */
 .rv,.rv-l,.rv-r{opacity:0;transition:opacity .8s ease,transform .8s ease;}
 .rv{transform:translateY(26px);}.rv-l{transform:translateX(-26px);}.rv-r{transform:translateX(26px);}
 .rv.in,.rv-l.in,.rv-r.in{opacity:1;transform:none;}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
 
-/* ADMIN */
+/* ═══════════════ ADMIN ═══════════════ */
 #admin-panel{display:none;position:fixed;inset:0;z-index:10000;background:rgba(10,8,18,.6);backdrop-filter:blur(8px);}
 #admin-panel.open{display:flex;align-items:flex-end;}
 .a-sheet{background:var(--white);width:100%;max-height:88vh;border-radius:20px 20px 0 0;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 -32px 80px rgba(75,29,143,.25);}
@@ -423,77 +412,59 @@ footer{background:var(--black);padding:72px 0 36px;}
 .a-save{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;padding:9px 24px;border-radius:8px;font-weight:600;font-size:13px;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:.2s;box-shadow:0 2px 10px rgba(107,50,200,.25);}
 .a-save:hover{box-shadow:0 4px 16px rgba(107,50,200,.4);}
 
-/* RESPONSIVE - with mobile nav fixes */
+/* ═══════════════ RESPONSIVE ═══════════════ */
 @media(max-width:1100px){
-  .values-grid{grid-template-columns:1fr 1fr;}
-  .ft-grid{grid-template-columns:1fr 1fr;gap:40px;}
+  .tech-layout{grid-template-columns:1fr;gap:48px;}
+  .tech-stage{padding-bottom:60%;max-width:480px;margin:0 auto;}
 }
-
 @media(max-width:960px){
-  body{cursor:auto;}
-  #cur,#cur-r{display:none;}
-  .nav-wrap{padding:0 20px;height:64px;}
-  .nav-links{display:none !important;}
+  nav .nav-links:not(.mob){display:none;}
   .hbg{display:flex;}
-  .logo-name{font-size:15px;}
-  .logo-sub{display:none;}
-  .logo-icon{width:36px;height:36px;min-width:36px;}
-  .logo-icon::after{font-size:18px;}
-  .wrap{padding:0 24px;}
-  .hero-content{grid-template-columns:1fr;padding:90px 24px 60px;gap:40px;}
+  .wrap{padding:0 20px;}
+  .sec{padding:60px 0;}
+  .hero-content{grid-template-columns:1fr;padding:90px 20px 60px;gap:40px;}
   .hero-right{display:none;}
-  .about-grid{grid-template-columns:1fr;gap:40px;}
-  .about-float{top:-12px;right:-8px;}
-  .mission-vision{grid-template-columns:1fr;}
-  .tech-layout{grid-template-columns:1fr;gap:40px;}
-  .tech-stage{height:auto;}
-  .contact-layout{grid-template-columns:1fr;gap:40px;}
+  .about-grid{grid-template-columns:1fr;gap:48px;}
+  .about-float{right:0;top:-16px;}
   .services-grid{grid-template-columns:1fr 1fr;}
-  .services-head{grid-template-columns:1fr;gap:16px;}
+  .services-head{grid-template-columns:1fr;gap:16px;margin-bottom:36px;}
   .prod-hd{grid-template-columns:1fr;gap:16px;}
   .values-grid{grid-template-columns:1fr 1fr;}
   .stats-row{grid-template-columns:1fr 1fr;}
-  .clients-layout{grid-template-columns:1fr;gap:32px;}
-  .test-layout{grid-template-columns:1fr;gap:32px;}
+  .clients-layout{grid-template-columns:1fr;gap:36px;}
+  .test-layout{grid-template-columns:1fr;gap:36px;}
+  .contact-layout{grid-template-columns:1fr;gap:40px;}
   .ft-grid{grid-template-columns:1fr 1fr;gap:32px;}
   .frow{grid-template-columns:1fr;}
-  .prod-track{padding-left:20px;padding-right:20px;}
-  .prod-ctrls{padding-left:20px;padding-right:20px;}
-  .zoom-outer{display:none !important;}
-  .chapters-mobile{display:block;padding:72px 0;}
-  .chapters-mobile .wrap{padding:0 24px;}
   .z-side{display:none;}
-  .z-step{padding:0 24px;}
   .a-grid{grid-template-columns:1fr;}
   .a-body{flex-direction:column;}
-  .a-sidebar{width:100%;flex-direction:row;flex-wrap:wrap;border-right:none;border-bottom:1px solid var(--rule);max-height:120px;}
-  .a-tab{white-space:nowrap;border-left:none !important;}
-  .a-tab.on{border-left:none !important;border-bottom:2px solid var(--purple2);}
-  .cta-content{padding:0 24px;}
-  .pq-text{padding:0 24px;}
-  .sec{padding:72px 0;}
-  .stat-col{padding:36px 24px;}
-  .stat-n{font-size:48px;}
+  .a-sidebar{width:100%;flex-direction:row;flex-wrap:wrap;border-right:none;border-bottom:1px solid var(--rule);}
+  .a-tab{white-space:nowrap;border-left:none;}
+  .a-tab.on{border-left:none;border-bottom:2px solid var(--purple2);}
+  .mission-vision{grid-template-columns:1fr;}
 }
-
-@media(max-width:600px){
+@media(max-width:640px){
+  .nav-wrap{padding:0 16px;}
+  .logo-sub{display:none;}
+  .logo-name{font-size:14px;}
   .services-grid{grid-template-columns:1fr;}
   .values-grid{grid-template-columns:1fr;}
   .stats-row{grid-template-columns:1fr 1fr;}
+  .stat-col{padding:28px 20px;}
   .ft-grid{grid-template-columns:1fr;}
-  .ft-grid .ft-brand{display:none;}
-  .hero-h1{font-size:clamp(40px,12vw,64px);}
-  .hero-btns{flex-direction:column;}
-  .btn-gold,.btn-outline{text-align:center;}
-  .clients-layout{grid-template-columns:1fr;}
-  .cl-runner{margin-top:16px;}
-  .cform{padding:24px;}
-  .contact-layout .sec-p{max-width:100%;}
-  .sec{padding:56px 0;}
-  #products{padding:56px 0;}
-  #rotation{padding:56px 0;}
-  .prod-card{width:260px;}
-  .chapters-mobile{padding:56px 0;}
+  .ft-col:nth-child(3),.ft-col:nth-child(4){display:none;}
+  .hero-h1{font-size:clamp(38px,10vw,64px);}
+  .cform{padding:20px;}
+  .test-card{padding:20px;}
+  .test-card:hover{transform:none;}
+  .prod-card{width:240px;}
+  .ac-stats .acs{padding:16px 18px;}
+  .acs-n{font-size:26px;}
+  /* zoom section: reduce ring sizes on small screens */
+  #zr1{width:280px!important;height:280px!important;}
+  #zr2{width:180px!important;height:180px!important;}
+  #zr3{width:100px!important;height:100px!important;}
 }
 </style>
 </head>
@@ -505,7 +476,11 @@ footer{background:var(--black);padding:72px 0 36px;}
 <nav id="nav">
   <div class="nav-wrap">
     <a href="#home" class="logo">
-      <div class="logo-icon"></div>
+      <svg viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="18" y="32" width="72" height="56" rx="10" stroke="#C9960C" stroke-width="14"/>
+        <path d="M32 58 L68 58 L85 78 L105 58" stroke="#C9960C" stroke-width="11" stroke-linejoin="round"/>
+        <text x="118" y="88" fill="#C9960C" font-size="68" font-weight="700" font-family="Space Grotesk">JLSA</text>
+      </svg>
       <div class="logo-text">
         <div class="logo-name">Joshlee <em>Solutions</em> Africa</div>
         <div class="logo-sub">Developing Solutions for The Future</div>
@@ -520,23 +495,11 @@ footer{background:var(--black);padding:72px 0 36px;}
       <li><a href="#values">Values</a></li>
       <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
     </ul>
-    <button class="hbg" id="hbg" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <button class="hbg" id="hbg" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
-<!-- MOBILE NAV OVERLAY -->
-<ul class="nav-overlay" id="nav-overlay">
-  <button class="nav-overlay-close" id="nav-overlay-close">✕ Close</button>
-  <li><a href="#home">Home</a></li>
-  <li><a href="#about">About</a></li>
-  <li><a href="#services">Services</a></li>
-  <li><a href="#products">Products</a></li>
-  <li><a href="#clients">Clients</a></li>
-  <li><a href="#values">Values</a></li>
-  <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
-</ul>
-
-<!-- HERO (and all other sections below are exactly as you provided) -->
+<!-- HERO -->
 <section id="home">
   <div class="hero-bg"></div>
   <div class="hero-mesh"></div>
@@ -547,8 +510,8 @@ footer{background:var(--black);padding:72px 0 36px;}
       <div class="hero-eyebrow"><div class="hero-eyebrow-dot"></div><span id="hero-tag">IT Consultancy · Nairobi, Kenya</span></div>
       <h1 class="hero-h1" id="hero-h1">
         Developing
-        <em id="hero-h1-em">Solutions</em>
-        <span class="small" id="hero-h1-small">for The Future</span>
+        <em>Solutions</em>
+        <span class="small">for The Future</span>
       </h1>
       <p class="hero-desc" id="hero-desc">Joshlee Solutions Africa provides world-class IT consultancy, cybersecurity, networking, cloud, and software services — empowering businesses across East Africa and beyond with innovative, cost-effective technology.</p>
       <div class="hero-btns">
@@ -586,7 +549,7 @@ footer{background:var(--black);padding:72px 0 36px;}
 <div class="ticker"><div class="t-track" id="ticker"></div></div>
 <div class="divider"></div>
 
-<!-- ABOUT (full) -->
+<!-- ABOUT -->
 <section id="about" class="sec">
   <div class="wrap">
     <div class="about-grid">
@@ -634,7 +597,7 @@ footer{background:var(--black);padding:72px 0 36px;}
 </section>
 <div class="divider"></div>
 
-<!-- SERVICES (full) -->
+<!-- SERVICES -->
 <section id="services" class="sec">
   <div class="wrap">
     <div class="services-head rv">
@@ -649,7 +612,7 @@ footer{background:var(--black);padding:72px 0 36px;}
 </section>
 <div class="divider"></div>
 
-<!-- PRODUCTS (full) -->
+<!-- PRODUCTS horizontal scroll -->
 <section id="products">
   <div class="wrap">
     <div class="prod-hd rv">
@@ -662,15 +625,15 @@ footer{background:var(--black);padding:72px 0 36px;}
   </div>
   <div class="prod-scroll-outer rv"><div class="prod-track" id="prod-track"></div></div>
   <div class="prod-ctrls">
-    <button class="pc-btn" id="prod-prev" aria-label="Previous">←</button>
+    <button class="pc-btn" id="prod-prev">←</button>
     <div class="pc-bar"><div class="pc-thumb" id="prod-thumb"></div></div>
-    <button class="pc-btn" id="prod-next" aria-label="Next">→</button>
+    <button class="pc-btn" id="prod-next">→</button>
   </div>
-  <div style="padding-bottom:110px;"></div>
+  <div style="padding-bottom:80px;"></div>
 </section>
 <div class="divider"></div>
 
-<!-- CLIENTS (full) -->
+<!-- CLIENTS -->
 <section id="clients" class="sec">
   <div class="wrap">
     <div class="clients-layout">
@@ -691,7 +654,7 @@ footer{background:var(--black);padding:72px 0 36px;}
 </section>
 <div class="divider"></div>
 
-<!-- FEATURES (full) -->
+<!-- ZOOM SCROLL -->
 <section id="features">
   <div class="zoom-outer" id="zoom-outer">
     <div class="zoom-sticky">
@@ -705,18 +668,11 @@ footer{background:var(--black);padding:72px 0 36px;}
       <div class="z-side" id="z-side"></div>
     </div>
   </div>
-  <div class="chapters-mobile" id="chapters-mobile">
-    <div class="wrap">
-      <div class="sec-eye" style="justify-content:center;margin-bottom:8px;">Our Approach</div>
-      <h2 class="sec-h" style="text-align:center;margin-bottom:40px;">How We <em>Work</em></h2>
-      <div id="chap-cards-mobile"></div>
-    </div>
-  </div>
 </section>
 
-<!-- PULL QUOTE (full) -->
+<!-- PULL QUOTE -->
 <section id="pullquote">
-  <div class="wrap" style="padding-top:0;padding-bottom:0;">
+  <div class="wrap" style="padding-top:80px;padding-bottom:80px;">
     <div class="pq-inner rv">
       <span class="pq-mark">"</span>
       <p class="pq-text" id="pq-text">We design solutions and products that are <em>easy to understand, easy to use,</em> and dependable — built to meet the changing demands of modern business.</p>
@@ -725,7 +681,7 @@ footer{background:var(--black);padding:72px 0 36px;}
   </div>
 </section>
 
-<!-- TECHNOLOGY (full) -->
+<!-- TECHNOLOGY ORBITAL -->
 <section id="technology" class="sec">
   <div class="wrap">
     <div class="tech-layout">
@@ -735,17 +691,26 @@ footer{background:var(--black);padding:72px 0 36px;}
         <p class="sec-p" style="margin-bottom:8px;">We leverage industry-leading platforms and tools to deliver reliable, secure and scalable solutions for every client.</p>
         <div class="tech-pts" id="tech-pts"></div>
       </div>
-      <div class="tech-stage rv-r" id="tech-stage"></div>
+      <div class="rv-r">
+        <div class="tech-stage" id="tech-stage">
+          <div class="tech-orbit-wrap" id="tech-orbit-wrap">
+            <div class="orbit-ring orbit-ring-1"></div>
+            <div class="orbit-ring orbit-ring-2"></div>
+            <div class="orbit-ring orbit-ring-3"></div>
+            <div class="orbit-center">🔐</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- STATS (full) -->
+<!-- STATS -->
 <section id="stats">
   <div class="stats-row" id="stats-row"></div>
 </section>
 
-<!-- VALUES (full) -->
+<!-- VALUES -->
 <section id="values" class="sec">
   <div class="wrap">
     <div class="rv" style="text-align:center;margin-bottom:0;">
@@ -756,18 +721,18 @@ footer{background:var(--black);padding:72px 0 36px;}
   </div>
 </section>
 
-<!-- ROTATION (full) -->
+<!-- ROTATION -->
 <section id="rotation">
   <div class="wrap" style="padding:72px 0 0;text-align:center;">
     <div class="sec-eye rv" style="justify-content:center;">Partner Ecosystem</div>
     <h2 class="sec-h rv" style="text-align:center;">Our <em>Technology</em> Partners</h2>
   </div>
-  <div class="rot-runner" style="padding:0;margin-top:44px;"><div class="rot-track" id="rot-track"></div></div>
+  <div class="rot-runner" style="margin-top:44px;"><div class="rot-track" id="rot-track"></div></div>
   <div style="padding-bottom:72px;"></div>
 </section>
 <div class="divider"></div>
 
-<!-- PARALLAX CTA (full) -->
+<!-- PARALLAX CTA -->
 <section id="cta-band">
   <div class="cta-dark-bg"></div>
   <div class="cta-glow"></div>
@@ -781,13 +746,13 @@ footer{background:var(--black);padding:72px 0 36px;}
   </div>
 </section>
 
-<!-- TESTIMONIALS (full) -->
+<!-- TESTIMONIALS -->
 <section id="testimonials" class="sec">
   <div class="wrap">
     <div class="test-layout">
       <div class="rv-l">
         <div class="sec-eye" id="test-lbl">Testimonials</div>
-        <h2 class="sec-h" id="test-h" style="font-size:clamp(28px,3vw,42px);">What Our <em>Clients</em> Say</h2>
+        <h2 class="sec-h" id="test-h" style="font-size:clamp(24px,3vw,42px);">What Our <em>Clients</em> Say</h2>
         <p style="margin-top:16px;font-size:14px;line-height:1.75;color:var(--ink3);font-weight:300;">Trusted by organisations across Kenya and East Africa to deliver reliable, impactful IT solutions.</p>
       </div>
       <div class="test-cards rv-r" id="test-cards"></div>
@@ -796,7 +761,7 @@ footer{background:var(--black);padding:72px 0 36px;}
 </section>
 <div class="divider"></div>
 
-<!-- CONTACT (full) -->
+<!-- CONTACT -->
 <section id="contact" class="sec">
   <div class="wrap">
     <div class="contact-layout">
@@ -822,15 +787,15 @@ footer{background:var(--black);padding:72px 0 36px;}
           <div class="fg"><label class="flbl">Service of Interest</label>
             <select class="fs">
               <option value="">Select a service...</option>
-              <option>ICT Management &amp; Strategy</option>
+              <option>ICT Management & Strategy</option>
               <option>Cybersecurity Services</option>
               <option>Cloud Solutions</option>
               <option>Networking Services</option>
-              <option>Website Development &amp; SEO</option>
+              <option>Website Development & SEO</option>
               <option>Digital Marketing</option>
               <option>IT Audit</option>
               <option>IT Turnkey Solutions</option>
-              <option>Hardware &amp; Software Procurement</option>
+              <option>Hardware & Software Procurement</option>
             </select>
           </div>
           <div class="fg"><label class="flbl">Message</label><textarea class="ft" placeholder="Tell us about your project or challenge..."></textarea></div>
@@ -841,16 +806,20 @@ footer{background:var(--black);padding:72px 0 36px;}
   </div>
 </section>
 
-<!-- FOOTER (full) -->
+<!-- FOOTER -->
 <footer>
   <div class="wrap">
     <div class="ft-grid">
       <div class="ft-brand">
-        <a href="#home" class="logo" style="margin-bottom:18px;">
-          <div class="logo-icon"></div>
+        <a href="#home" class="logo">
+          <svg viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="18" y="32" width="72" height="56" rx="10" stroke="#C9960C" stroke-width="14"/>
+            <path d="M32 58 L68 58 L85 78 L105 58" stroke="#C9960C" stroke-width="11" stroke-linejoin="round"/>
+            <text x="118" y="88" fill="#C9960C" font-size="68" font-weight="700" font-family="Space Grotesk">JLSA</text>
+          </svg>
           <div class="logo-text">
-            <div class="ft-logo-name">Joshlee <em>Solutions</em> Africa</div>
-            <div class="ft-logo-sub">Developing Solutions for The Future</div>
+            <div class="logo-name" style="color:#fff;">Joshlee <em>Solutions</em></div>
+            <div class="logo-sub">Africa</div>
           </div>
         </a>
         <p>Developing Solutions for The Future — IT consultancy powering businesses across East Africa with innovative, dependable technology.</p>
@@ -860,7 +829,7 @@ footer{background:var(--black);padding:72px 0 36px;}
         <li><a href="#services">Cybersecurity</a></li>
         <li><a href="#services">Cloud Solutions</a></li>
         <li><a href="#services">Networking</a></li>
-        <li><a href="#services">Web &amp; SEO</a></li>
+        <li><a href="#services">Web & SEO</a></li>
       </ul></div>
       <div class="ft-col"><h4>Company</h4><ul>
         <li><a href="#about">About Us</a></li>
@@ -870,18 +839,18 @@ footer{background:var(--black);padding:72px 0 36px;}
       </ul></div>
       <div class="ft-col"><h4>Contact</h4><ul>
         <li><a href="tel:0739293691">0739 293 691</a></li>
-        <li><a href="mailto:miricconsultantskenya@gmail.com">miricconsultantskenya@gmail.com</a></li>
-        <li><a href="#contact">Nairobi, Kenya</a></li>
+        <li><a href="mailto:miricconsultantskenya@gmail.com">Email Us</a></li>
+        <li><a href="#">Nairobi, Kenya</a></li>
       </ul></div>
     </div>
     <div class="ft-bottom">
-      <p>© 2025 Joshlee Solutions Africa. All rights reserved.</p>
+      <p>© 2026 Joshlee Solutions Africa. All rights reserved.</p>
       <button class="admin-btn" id="admin-trigger">admin</button>
     </div>
   </div>
 </footer>
 
-<!-- ADMIN PANEL (full) -->
+<!-- ADMIN PANEL -->
 <div id="admin-panel">
   <div class="a-sheet">
     <div class="a-hdr"><h2>Site <em>Admin</em></h2><button class="a-x" id="admin-close">✕ Close</button></div>
@@ -901,9 +870,7 @@ footer{background:var(--black);padding:72px 0 36px;}
           <div class="a-card"><h4>Hero Content</h4>
             <div class="a-grid">
               <div class="a-field"><label class="a-lbl">Tag Line</label><input class="a-in" id="e-tag" value="IT Consultancy · Nairobi, Kenya"></div>
-              <div class="a-field"><label class="a-lbl">Headline</label><input class="a-in" id="e-h1" value="Developing"></div>
-              <div class="a-field"><label class="a-lbl">Italic Word</label><input class="a-in" id="e-h1-em" value="Solutions"></div>
-              <div class="a-field"><label class="a-lbl">Subtitle</label><input class="a-in" id="e-h1-small" value="for The Future"></div>
+              <div class="a-field"><label class="a-lbl">Headline</label><input class="a-in" id="e-h1" value="Developing Solutions for The Future"></div>
             </div>
             <div class="a-field"><label class="a-lbl">Description</label><textarea class="a-ta" id="e-desc">Joshlee Solutions Africa provides world-class IT consultancy, cybersecurity, networking, cloud, and software services — empowering businesses across East Africa.</textarea></div>
             <button class="a-save" onclick="applyHero()">Apply</button>
@@ -987,39 +954,299 @@ footer{background:var(--black);padding:72px 0 36px;}
 </div>
 
 <script>
-/* Your full script from the original code (data + all functions) */
 const D={
-  services:[ /* full array as you provided */ ],
-  products:[ /* full */ ],
-  clients:[ /* full */ ],
-  testimonials:[ /* full */ ],
-  zoomSteps:[ /* full */ ],
-  techCards:[ /* full */ ],
-  techPts:[ /* full */ ],
-  values:[ /* full */ ],
-  stats:[ /* full */ ],
-  aboutPts:[ /* full */ ],
-  heroMinis:[ /* full */ ],
-  rotItems:[ /* full */ ],
-  ticker:[ /* full */ ]
+  services:[
+    {ic:'🎯',n:'01',t:'ICT Management',d:'We assist companies decide on the best ICT policies and strategies that will add value and ensure ICT standards are current.',tags:['Strategy','Policy','Planning','Governance']},
+    {ic:'🔐',n:'02',t:'Cybersecurity',d:'Comprehensive cybersecurity services including cloud security, network security audits and software security assessments.',tags:['Cloud Security','Network Security','Software Audit','Threat Analysis']},
+    {ic:'☁️',n:'03',t:'Cloud Solutions',d:'We offer cloud solutions that ensure all client storage needs are met and that their data is secure, accessible and scalable.',tags:['Cloud Storage','Migration','Backup','Office 365']},
+    {ic:'🌐',n:'04',t:'Networking Services',d:'Over 7 years experience delivering networking solutions with minimal downtime — LAN, WAN and bandwidth advisory.',tags:['LAN/WAN','Bandwidth','Infrastructure','Monitoring']},
+    {ic:'💻',n:'05',t:'Website Development & SEO',d:'We develop websites that are intuitive, informative and interactive — an excellent way to exude confidence to your clients.',tags:['Web Design','SEO','CMS','E-commerce']},
+    {ic:'📈',n:'06',t:'Digital Marketing & IT Audit',d:'We expose clients to existing and new audiences digitally, while offering Network Security, System and Overall ICT Audits.',tags:['Digital Marketing','IT Audit','Network Audit','System Review']},
+    {ic:'🖥️',n:'07',t:'Hardware & Software Procurement',d:'We advise on the best hardware and software to procure with the best specifications and at a good market rate.',tags:['Hardware','Software','Licensing','Value Analysis']},
+    {ic:'🔑',n:'08',t:'IT Turnkey Solutions',d:'End-to-end IT project delivery — from planning and procurement through installation, configuration and handover.',tags:['Full Delivery','Setup','Configuration','Handover']},
+  ],
+  products:[
+    {ic:'🛡️',n:'01',t:'Cyber Security Suite',d:'A complete cybersecurity package protecting your business from evolving digital threats.',f:['Penetration Testing','Vulnerability Assessment','Incident Response','Security Training','Compliance Reporting']},
+    {ic:'☁️',n:'02',t:'Cloud Security',d:'Secure your cloud infrastructure with monitoring, access control and encryption solutions.',f:['Access Management','Data Encryption','Cloud Monitoring','Compliance','Disaster Recovery']},
+    {ic:'🔍',n:'03',t:'Network Security Audit',d:'Comprehensive assessment of your network infrastructure to identify vulnerabilities and risks.',f:['Network Scanning','Risk Assessment','Firewall Review','VPN Audit','Audit Report']},
+    {ic:'📋',n:'04',t:'Software Security Audit',d:'In-depth review of your software systems to ensure they meet security and compliance standards.',f:['Code Review','OWASP Compliance','Security Testing','Patch Management','Remediation Plan']},
+    {ic:'🔧',n:'05',t:'IT Turnkey Solutions',d:'Complete, ready-to-use IT infrastructure solutions delivered from start to finish.',f:['Needs Analysis','Procurement','Installation','Configuration','Ongoing Support']},
+    {ic:'📊',n:'06',t:'ICT Strategy & Advisory',d:'Expert guidance on technology investments, digital transformation and IT governance.',f:['IT Roadmap','Technology Review','Budget Advisory','Vendor Management','Policy Development']},
+  ],
+  clients:[
+    {n:'Italian Trade Agency',l:'International',t:'Government'},
+    {n:'Grasi San Marco Project',l:'Malindi, Kenya',t:'Development'},
+    {n:'Self Help Africa',l:'Kenya',t:'NGO'},
+    {n:'Metropolitan Sacco Limited',l:'Nairobi, Kenya',t:'Financial'},
+  ],
+  testimonials:[
+    {q:'Joshlee Solutions Africa delivered an exceptional network security audit that gave us complete confidence in our IT infrastructure. Professional, thorough and highly knowledgeable.',n:'Client Representative',r:'Italian Trade Agency',i:'IT'},
+    {q:'The team provided outstanding IT support for our project in Malindi. Their expertise in networking and cloud solutions made our operations seamless from day one.',n:'Project Manager',r:'Grasi San Marco Project, Malindi',i:'GS'},
+    {q:'We rely on Joshlee Solutions Africa for all our ICT needs. Their response time, quality of service and honest advice sets them apart from anyone else we have worked with.',n:'IT Coordinator',r:'Self Help Africa, Kenya',i:'SH'},
+  ],
+  zoomSteps:[
+    {n:'I',t:'Assess Your',em:'IT Landscape',d:'We begin with a thorough understanding of your current technology infrastructure, identifying gaps and opportunities.'},
+    {n:'II',t:'Secure Every',em:'Entry Point',d:'From network perimeters to cloud environments — we implement layered cybersecurity that keeps threats out.'},
+    {n:'III',t:'Build',em:'Resilient Systems',d:'We design and deploy reliable IT infrastructure that performs under pressure and scales with your business.'},
+    {n:'IV',t:'Empower Your',em:'Digital Presence',d:'Professional websites, SEO and digital marketing strategies that connect you with the clients you deserve.'},
+    {n:'V',t:'Deliver',em:'Turnkey Solutions',d:'From first conversation to final handover — we manage the entire technology journey so you can focus on your business.'},
+  ],
+  techCards:[
+    {ic:'🪟',t:'Office 365',d:'Productivity'},
+    {ic:'☁️',t:'Azure / AWS',d:'Cloud'},
+    {ic:'🐧',t:'Linux',d:'Server OS'},
+    {ic:'🛡️',t:'Fortinet',d:'Security'},
+    {ic:'🔗',t:'Cisco',d:'Networking'},
+    {ic:'📊',t:'Analytics',d:'Reporting'},
+    {ic:'🌐',t:'Web Platforms',d:'Development'},
+    {ic:'🔒',t:'Encryption',d:'Data Security'},
+  ],
+  techPts:[
+    {n:'I',h:'Microsoft Ecosystem',p:'Office 365, Azure and Microsoft business solutions — implemented and managed by certified experts.'},
+    {n:'II',h:'Enterprise Networking',p:'Cisco and industry-standard networking infrastructure for reliable, high-performance connectivity.'},
+    {n:'III',h:'Security-First Approach',p:'Every solution we build incorporates security by design — not as an afterthought.'},
+  ],
+  values:[
+    {ic:'✅',h:'Acceptability',p:'We design solutions and products that are easy to understand, easy to use and compatible with existing operations and infrastructure.'},
+    {ic:'🤝',h:'Dependability',p:'Our products can be trusted and relied on to deliver on client expectations and business demands — every time.'},
+    {ic:'⚡',h:'Efficiency',p:'Products developed are affordable and provide cost-effective ways to maximize system resources and reduce wastage.'},
+    {ic:'🔄',h:'Maintainability',p:'Our products are flexible and adapt to meet changing business demands and challenges as your organisation grows.'},
+  ],
+  stats:[{n:7,l:'Years Experience',s:'+'},{n:8,l:'Core Services',s:''},{n:3,l:'Major Clients',s:'+'},{n:99,l:'% Commitment',s:'%'}],
+  aboutPts:[
+    {ic:'🔐',h:'Cybersecurity First',p:'We put security at the heart of every solution we deliver — protecting your data and systems from evolving threats.'},
+    {ic:'🤝',h:'Partnership Approach',p:'We act as your dedicated IT partner — not just a vendor — invested in your long-term success and growth.'},
+    {ic:'💡',h:'Cost-Effective Innovation',p:'We leverage open-source and proven technologies to deliver maximum value without unnecessary expense.'},
+  ],
+  heroMinis:[{ic:'🔐',t:'Cybersecurity'},{ic:'☁️',t:'Cloud'},{ic:'🌐',t:'Networking'},{ic:'💻',t:'Web & SEO'}],
+  rotItems:[{ic:'🪟',nm:'Microsoft 365'},{ic:'☁️',nm:'Azure Cloud'},{ic:'🔗',nm:'Cisco Systems'},{ic:'🛡️',nm:'Fortinet Security'},{ic:'🐧',nm:'Linux Server'},{ic:'📊',nm:'Google Analytics'},{ic:'🌐',nm:'WordPress'},{ic:'🔒',nm:'SSL Security'}],
+  ticker:['ICT Management','Cybersecurity','Cloud Solutions','Networking Services','Website Development','SEO','Digital Marketing','IT Audit','Hardware Procurement','IT Turnkey Solutions','Network Security Audit','Software Security Audit','Cloud Security'],
 };
-
-/* All your helper functions, renderAll, initProdScroll, startCl, startRot, initZoom, initParallax, reObserve, observeCounters, cursor, nav open/close, admin functions, apply functions, render admin panels, save functions - exactly as in your last message */
 
 const g=id=>document.getElementById(id);
 const s=(id,html)=>{const e=g(id);if(e)e.innerHTML=html;};
 
-function renderAll(){ /* your full renderAll function */ }
-function initProdScroll(){ /* full */ }
-function startCl(){ /* full */ }
-function startRot(){ /* full */ }
-function initZoom(){ /* full */ }
-function initParallax(){ /* full */ }
-function reObserve(){ /* full */ }
-function observeCounters(){ /* full */ }
-function animC(el,target,suf){ /* full */ }
+// ── Orbital render (replaces 3D spiral that broke on mobile)
+function renderOrbital(){
+  const wrap=g('tech-orbit-wrap');
+  if(!wrap)return;
+  const cards=D.techCards;
+  // place cards in 3 rings: first 3 on inner, next 3 middle, last 2 outer
+  const rings=[
+    {r:27.5,items:[0,1,2]},
+    {r:41,  items:[3,4,5]},
+    {r:50,  items:[6,7]},
+  ];
+  rings.forEach(ring=>{
+    const n=ring.items.length;
+    ring.items.forEach((cardIdx,i)=>{
+      const angle=(2*Math.PI*i/n)-(Math.PI/2);
+      const x=50+ring.r*Math.cos(angle);
+      const y=50+ring.r*Math.sin(angle);
+      const c=cards[cardIdx];
+      const el=document.createElement('div');
+      el.className='orb-card';
+      el.style.left=x+'%';
+      el.style.top=y+'%';
+      el.innerHTML=`<div class="ic">${c.ic}</div><div class="t">${c.t}</div><div class="d">${c.d}</div>`;
+      wrap.appendChild(el);
+    });
+  });
+}
 
-/* Cursor, NAV logic, ADMIN logic, applyHero, applyAbout, etc. - all your original JS */
+function renderAll(){
+  // Particles
+  const pc=g('hero-particles');
+  for(let i=0;i<20;i++){
+    const p=document.createElement('div');p.className='hp';
+    p.style.cssText=`left:${Math.random()*100}%;width:${1+Math.random()*3}px;height:${1+Math.random()*3}px;animation-duration:${10+Math.random()*15}s;animation-delay:${Math.random()*12}s;`;
+    pc.appendChild(p);
+  }
+
+  s('hero-minis',D.heroMinis.map(m=>`<div class="hsm"><div class="hsm-ic">${m.ic}</div><div class="hsm-t">${m.t}</div></div>`).join(''));
+  s('ticker',[...D.ticker,...D.ticker].map(t=>`<div class="t-item"><span class="gem">◆</span>${t}</div>`).join(''));
+  s('about-pts',D.aboutPts.map((p,i)=>`<div class="a-pt rv d${i+1}"><div class="a-pt-ic">${p.ic}</div><div><div class="a-pt-h">${p.h}</div><div class="a-pt-p">${p.p}</div></div></div>`).join(''));
+  s('services-grid',D.services.map((sv,i)=>`<div class="svc-card rv d${Math.min(i+1,5)}"><div class="svc-num">${sv.n}</div><div class="svc-ic">${sv.ic}</div><div class="svc-title">${sv.t}</div><div class="svc-desc">${sv.d}</div><div class="svc-tags">${sv.tags.map(t=>`<span class="svc-tag">${t}</span>`).join('')}</div></div>`).join(''));
+  s('prod-track',D.products.map(p=>`<div class="prod-card"><div class="prod-card-top"><div class="pc-num">${p.n}</div><div class="prod-card-ic">${p.ic}</div><div class="prod-card-title">${p.t}</div><div class="prod-card-desc">${p.d}</div></div><ul class="prod-card-feats">${p.f.map(f=>`<li>${f}</li>`).join('')}</ul></div>`).join(''));
+  initProdScroll();
+
+  const mkCl=arr=>arr.map(c=>`<div class="cl-card"><div class="cl-name">${c.n}</div><div class="cl-loc">${c.l}</div><div class="cl-badge">${c.t}</div></div>`).join('');
+  s('cl-track',mkCl([...D.clients,...D.clients,...D.clients]));
+  s('cl-track2',mkCl([...D.clients,...D.clients,...D.clients].reverse()));
+  startCl();
+
+  s('zoom-steps',D.zoomSteps.map((z,i)=>`<div class="z-step ${i===0?'on':''}" id="zs${i}"><span class="z-step-tag">Chapter ${z.n}</span><h2 class="z-step-h">${z.t} <em>${z.em}</em></h2><p class="z-step-p">${z.d}</p></div>`).join(''));
+  s('z-prog',D.zoomSteps.map((_,i)=>`<div class="z-dot ${i===0?'on':''}" id="zd${i}"></div>`).join(''));
+  s('z-side',D.zoomSteps.map((z,i)=>`<div class="z-si ${i===0?'on':''}" id="zsi${i}"><div class="z-si-bar"></div><div class="z-si-lbl">${z.t} ${z.em}</div></div>`).join(''));
+
+  renderOrbital();
+
+  s('tech-pts',D.techPts.map(p=>`<div class="tech-pt rv"><div class="tp-n">${p.n}</div><div><div class="tp-h">${p.h}</div><div class="tp-p">${p.p}</div></div></div>`).join(''));
+  s('stats-row',D.stats.map(st=>`<div class="stat-col" data-l="${st.l}"><div class="stat-n" data-count="${st.n}" data-suf="${st.s}">0</div><div class="stat-l">${st.l}</div></div>`).join(''));
+  s('values-grid',D.values.map((v,i)=>`<div class="val-card rv d${i+1}"><div class="val-ic">${v.ic}</div><div class="val-h">${v.h}</div><div class="val-p">${v.p}</div></div>`).join(''));
+  s('rot-track',[...D.rotItems,...D.rotItems,...D.rotItems].map(r=>`<div class="rot-c"><div class="ic">${r.ic}</div><div class="nm">${r.nm}</div></div>`).join(''));
+  startRot();
+  s('test-cards',D.testimonials.map((t,i)=>`<div class="test-card rv d${i+1}"><div class="test-stars">★★★★★</div><div class="test-q">"${t.q}"</div><div class="test-author"><div class="test-av">${t.i}</div><div><div class="test-nm">${t.n}</div><div class="test-rl">${t.r}</div></div></div></div>`).join(''));
+  renderSvcsAdmin();renderProdsAdmin();renderClsAdmin();renderTsAdmin();
+  reObserve();observeCounters();
+}
+
+function initProdScroll(){
+  const track=g('prod-track'),thumb=g('prod-thumb');
+  if(!track||!thumb)return;
+  const cw=280+20;
+  function upThumb(){
+    const mx=track.scrollWidth-track.clientWidth;
+    const p=mx>0?track.scrollLeft/mx:0;
+    const tw=Math.max(10,Math.round(100*(track.clientWidth/track.scrollWidth)));
+    thumb.style.width=tw+'%';
+    thumb.style.left=(p*(100-tw))+'%';
+  }
+  track.addEventListener('scroll',upThumb);
+  g('prod-prev')?.addEventListener('click',()=>track.scrollBy({left:-cw,behavior:'smooth'}));
+  g('prod-next')?.addEventListener('click',()=>track.scrollBy({left:cw,behavior:'smooth'}));
+  upThumb();
+}
+
+let cX=0,cX2=0;
+function startCl(){
+  const t1=g('cl-track'),t2=g('cl-track2');if(!t1||!t2)return;
+  (function a(){
+    cX+=.4;const mx=t1.scrollWidth/3;if(cX>=mx)cX=0;t1.style.transform=`translateX(-${cX}px)`;
+    cX2+=.4;const mx2=t2.scrollWidth/3;if(cX2>=mx2)cX2=0;t2.style.transform=`translateX(-${cX2}px)`;
+    requestAnimationFrame(a);
+  })();
+}
+
+let rX=0;
+function startRot(){
+  const t=g('rot-track');if(!t)return;
+  (function a(){rX+=.4;const mx=t.scrollWidth/3;if(rX>=mx)rX=0;t.style.transform=`translateX(-${rX}px)`;requestAnimationFrame(a);})();
+}
+
+function initZoom(){
+  const outer=g('zoom-outer');if(!outer)return;
+  window.addEventListener('scroll',()=>{
+    const rect=outer.getBoundingClientRect();
+    const total=outer.offsetHeight-window.innerHeight;
+    const sc=-rect.top;
+    if(sc<0||sc>total)return;
+    const prog=sc/total;
+    const idx=Math.min(Math.floor(prog*D.zoomSteps.length),D.zoomSteps.length-1);
+    D.zoomSteps.forEach((_,i)=>{
+      [g(`zs${i}`),g(`zd${i}`),g(`zsi${i}`)].forEach(el=>{if(el)el.classList.toggle('on',i===idx);});
+    });
+    const r1=g('zr1'),r2=g('zr2'),r3=g('zr3');
+    if(r1){r1.style.transform=`scale(${.4+prog})`;r1.style.opacity=.12+prog*.45;}
+    if(r2){r2.style.transform=`scale(${.6+prog*.7})`;r2.style.opacity=.08+prog*.35;}
+    if(r3){r3.style.transform=`scale(${.75+prog*.4})`;r3.style.opacity=.06+prog*.28;}
+  });
+}
+
+function initParallax(){
+  window.addEventListener('scroll',()=>{
+    const sec=g('cta-band');if(!sec)return;
+    const rect=sec.getBoundingClientRect();
+    document.querySelectorAll('.cta-layer').forEach(l=>{if(l.dataset.speed)l.style.transform=`translateY(${(-rect.top)*parseFloat(l.dataset.speed)}px)`;});
+  });
+}
+
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.1});
+function reObserve(){document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>obs.observe(el));}
+
+function animC(el,target,suf){let s=0;(function f(ts){if(!s)s=ts;const p=Math.min((ts-s)/1600,1);el.textContent=Math.floor(p*target)+suf;if(p<1)requestAnimationFrame(f);})(0);}
+const cObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){animC(e.target,+e.target.dataset.count,e.target.dataset.suf||'');cObs.unobserve(e.target);}}),{threshold:.5});
+function observeCounters(){document.querySelectorAll('[data-count]').forEach(el=>cObs.observe(el));}
+
+// Cursor (desktop only)
+const cur=g('cur'),curR=g('cur-r');
+if(cur&&curR){
+  document.addEventListener('mousemove',e=>{
+    cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+    setTimeout(()=>{curR.style.left=e.clientX+'px';curR.style.top=e.clientY+'px';},55);
+  });
+  document.addEventListener('mousedown',()=>cur.style.transform='translate(-50%,-50%) scale(.4)');
+  document.addEventListener('mouseup',()=>cur.style.transform='translate(-50%,-50%) scale(1)');
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{curR.style.width='48px';curR.style.height='48px';curR.style.opacity='.8';});
+    el.addEventListener('mouseleave',()=>{curR.style.width='34px';curR.style.height='34px';curR.style.opacity='.6';});
+  });
+}
+
+// Nav scroll style
+window.addEventListener('scroll',()=>g('nav').classList.toggle('scrolled',scrollY>70));
+
+// Hamburger
+const hbg=g('hbg'),navLinks=g('nav-links');
+hbg.addEventListener('click',()=>navLinks.classList.toggle('mob'));
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('mob')));
+
+// Admin panel
+g('admin-trigger').addEventListener('click',()=>g('admin-panel').classList.add('open'));
+g('admin-close').addEventListener('click',()=>g('admin-panel').classList.remove('open'));
+g('admin-panel').addEventListener('click',e=>{if(e.target===g('admin-panel'))g('admin-panel').classList.remove('open');});
+document.querySelectorAll('.a-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.a-tab').forEach(t=>t.classList.remove('on'));
+    document.querySelectorAll('.a-sec').forEach(s=>s.classList.remove('on'));
+    tab.classList.add('on');
+    document.querySelector(`[data-sec="${tab.dataset.tab}"]`).classList.add('on');
+  });
+});
+
+// Apply functions
+function applyHero(){g('hero-tag').textContent=g('e-tag').value;g('hero-desc').textContent=g('e-desc').value;}
+function applyAbout(){g('about-lbl').textContent=g('e-al').value;g('about-h').innerHTML=g('e-ah').value;g('about-p').textContent=g('e-ap').value;}
+function applySvc(){g('svc-lbl').textContent=g('e-sl').value;g('svc-h').innerHTML=g('e-sh').value;g('svc-p').textContent=g('e-sp').value;}
+function applyProds(){g('prod-lbl').textContent=g('e-pl').value;g('prod-h').innerHTML=g('e-ph').value;}
+function applyClHdr(){g('cl-lbl').textContent=g('e-cll').value;g('cl-h').innerHTML=g('e-clh').value;}
+function applyTsHdr(){g('test-lbl').textContent=g('e-tl').value;g('test-h').innerHTML=g('e-th').value;}
+function applyContact(){g('ct-lbl').textContent=g('e-ctl').value;g('ct-h').innerHTML=g('e-cth').value;g('ct-p').textContent=g('e-ctp').value;}
+function applyTheme(){
+  const r=document.documentElement;
+  r.style.setProperty('--purple',g('e-purple').value);
+  r.style.setProperty('--gold',g('e-gold').value);
+  r.style.setProperty('--white',g('e-bg').value);
+  r.style.setProperty('--black',g('e-dark').value);
+}
+
+// Admin helpers
+function renderSvcsAdmin(){
+  s('svcs-admin',D.services.map((sv,i)=>`<div class="a-card"><h4>Service ${i+1} — ${sv.t}</h4>
+    <div class="a-grid"><div class="a-field"><label class="a-lbl">Icon</label><input class="a-in" id="si${i}" value="${sv.ic}"></div>
+    <div class="a-field"><label class="a-lbl">Title</label><input class="a-in" id="st${i}" value="${sv.t}"></div></div>
+    <div class="a-field"><label class="a-lbl">Description</label><textarea class="a-ta" id="sd${i}">${sv.d}</textarea></div>
+    <button class="a-save" onclick="saveSvc(${i})">Save</button></div>`).join(''));
+}
+function saveSvc(i){D.services[i].ic=g(`si${i}`).value;D.services[i].t=g(`st${i}`).value;D.services[i].d=g(`sd${i}`).value;s('services-grid',D.services.map((sv,j)=>`<div class="svc-card rv d${Math.min(j+1,5)}"><div class="svc-num">${sv.n}</div><div class="svc-ic">${sv.ic}</div><div class="svc-title">${sv.t}</div><div class="svc-desc">${sv.d}</div><div class="svc-tags">${sv.tags.map(t=>`<span class="svc-tag">${t}</span>`).join('')}</div></div>`).join(''));reObserve();}
+function renderProdsAdmin(){
+  s('prods-admin',D.products.map((p,i)=>`<div class="a-card"><h4>Product ${i+1} — ${p.t}</h4>
+    <div class="a-grid"><div class="a-field"><label class="a-lbl">Icon</label><input class="a-in" id="pi${i}" value="${p.ic}"></div>
+    <div class="a-field"><label class="a-lbl">Title</label><input class="a-in" id="pt${i}" value="${p.t}"></div></div>
+    <div class="a-field"><label class="a-lbl">Description</label><textarea class="a-ta" id="pd${i}">${p.d}</textarea></div>
+    <button class="a-save" onclick="saveProd(${i})">Save</button></div>`).join(''));
+}
+function saveProd(i){D.products[i].ic=g(`pi${i}`).value;D.products[i].t=g(`pt${i}`).value;D.products[i].d=g(`pd${i}`).value;s('prod-track',D.products.map(p=>`<div class="prod-card"><div class="prod-card-top"><div class="pc-num">${p.n}</div><div class="prod-card-ic">${p.ic}</div><div class="prod-card-title">${p.t}</div><div class="prod-card-desc">${p.d}</div></div><ul class="prod-card-feats">${p.f.map(f=>`<li>${f}</li>`).join('')}</ul></div>`).join(''));initProdScroll();}
+function renderClsAdmin(){
+  s('cls-admin',D.clients.map((c,i)=>`<div class="a-card"><h4>Client ${i+1}</h4>
+    <div class="a-grid"><div class="a-field"><label class="a-lbl">Name</label><input class="a-in" id="cn${i}" value="${c.n}"></div>
+    <div class="a-field"><label class="a-lbl">Location</label><input class="a-in" id="cl${i}" value="${c.l}"></div>
+    <div class="a-field"><label class="a-lbl">Type</label><input class="a-in" id="ct${i}" value="${c.t}"></div></div>
+    <button class="a-save" onclick="saveCl(${i})">Save</button></div>`).join(''));
+}
+function saveCl(i){D.clients[i].n=g(`cn${i}`).value;D.clients[i].l=g(`cl${i}`).value;D.clients[i].t=g(`ct${i}`).value;}
+function renderTsAdmin(){
+  s('ts-admin',D.testimonials.map((t,i)=>`<div class="a-card"><h4>Testimonial ${i+1}</h4>
+    <div class="a-field"><label class="a-lbl">Quote</label><textarea class="a-ta" id="tq${i}">${t.q}</textarea></div>
+    <div class="a-grid"><div class="a-field"><label class="a-lbl">Name</label><input class="a-in" id="tn${i}" value="${t.n}"></div>
+    <div class="a-field"><label class="a-lbl">Role/Org</label><input class="a-in" id="tr${i}" value="${t.r}"></div></div>
+    <button class="a-save" onclick="saveTs(${i})">Save</button></div>`).join(''));
+}
+function saveTs(i){D.testimonials[i].q=g(`tq${i}`).value;D.testimonials[i].n=g(`tn${i}`).value;D.testimonials[i].r=g(`tr${i}`).value;s('test-cards',D.testimonials.map((t,j)=>`<div class="test-card rv d${j+1}"><div class="test-stars">★★★★★</div><div class="test-q">"${t.q}"</div><div class="test-author"><div class="test-av">${t.i}</div><div><div class="test-nm">${t.n}</div><div class="test-rl">${t.r}</div></div></div></div>`).join(''));reObserve();}
+
+renderAll();
+initZoom();
+initParallax();
 </script>
 </body>
 </html>
