@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joshlee Solutions Africa – Dark Luxury</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A84C;--gold-lt:#E8C96A;--gold-dim:#8B6914;
+  --purple:#4A1D8F;--purple-mid:#6B35C9;--purple-lt:#9B6EF5;
+  --bg:#0D0B18;--black:#09080F;
+  --surf:rgba(255,255,255,0.04);--border:rgba(201,168,76,0.15);
+  --text:#F0EBE0;--muted:rgba(240,235,224,0.55)
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6;overflow-x:hidden}
+
+/* CURSOR */
+#cdot,#cring{position:fixed;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%)}
+#cdot{width:8px;height:8px;background:var(--gold);transition:transform .1s}
+#cring{width:36px;height:36px;border:1.5px solid var(--gold-lt);transition:left .15s,top .15s,width .3s,height .3s}
+
+/* SCROLL BAR */
+#sbar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--purple-mid),var(--gold));z-index:1000;width:0;transition:width .05s}
+
+/* NAV */
+nav{position:fixed;inset:0 0 auto 0;z-index:900;height:72px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;transition:background .4s,backdrop-filter .4s,border-bottom .4s}
+nav.sc{background:rgba(9,8,15,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-mark{width:42px;height:42px;background:linear-gradient(135deg,var(--purple),var(--purple-mid));border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;color:var(--gold);font-size:18px;flex-shrink:0}
+.logo-name{font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;color:var(--gold);line-height:1.1}
+.logo-sub{font-size:.62rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase}
+.nav-ul{display:flex;gap:36px;list-style:none}
+.nav-ul a{color:var(--muted);text-decoration:none;font-size:.85rem;letter-spacing:.05em;font-weight:500;transition:color .3s;position:relative}
+.nav-ul a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.nav-ul a:hover{color:var(--gold)}
+.nav-ul a:hover::after{width:100%}
+.nav-btn{background:linear-gradient(135deg,var(--purple),var(--purple-mid));color:#fff;padding:10px 24px;border-radius:6px;text-decoration:none;font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;transition:box-shadow .3s,transform .2s;border:1px solid rgba(107,53,201,.5)}
+.nav-btn:hover{box-shadow:0 0 24px rgba(107,53,201,.5);transform:translateY(-1px)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px}
+.ham span{display:block;width:24px;height:2px;background:var(--gold);transition:all .3s}
+.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(9,8,15,.97);backdrop-filter:blur(20px);padding:24px 5%;border-bottom:1px solid var(--border);flex-direction:column;gap:0;z-index:899}
+.mob.open{display:flex}
+.mob a{color:var(--muted);text-decoration:none;font-size:1rem;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06);font-weight:500;transition:color .3s}
+.mob a:last-child{border-bottom:none}
+.mob a:hover{color:var(--gold)}
+.mob .nav-btn{margin-top:16px;text-align:center;border-bottom:none}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:80px 5% 60px}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35;animation:flt 8s ease-in-out infinite}
+.o1{width:600px;height:600px;background:radial-gradient(circle,var(--purple-mid),transparent 70%);top:-20%;left:-10%}
+.o2{width:500px;height:500px;background:radial-gradient(circle,var(--gold-dim),transparent 70%);bottom:-10%;right:-5%;animation-delay:-3s}
+.o3{width:350px;height:350px;background:radial-gradient(circle,var(--purple-lt),transparent 70%);top:40%;left:45%;animation-delay:-5s}
+@keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-30px)}}
+.hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px);background-size:60px 60px}
+.hcont{position:relative;z-index:2;max-width:720px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--surf);border:1px solid var(--border);border-radius:100px;padding:8px 18px;font-size:.73rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;backdrop-filter:blur(10px)}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,7vw,5.8rem);font-weight:900;line-height:1.05;margin-bottom:24px}
+h1 em{font-style:italic;background:linear-gradient(135deg,var(--gold),var(--gold-lt));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hdesc{color:var(--muted);font-size:1.08rem;max-width:500px;margin-bottom:44px;line-height:1.8}
+.hbtns{display:flex;gap:16px;flex-wrap:wrap}
+.btn1{background:linear-gradient(135deg,var(--gold),var(--gold-lt));color:var(--black);padding:15px 36px;border-radius:8px;text-decoration:none;font-weight:700;font-size:.87rem;letter-spacing:.06em;text-transform:uppercase;transition:box-shadow .3s,transform .2s;display:inline-flex;align-items:center;gap:10px}
+.btn1:hover{box-shadow:0 8px 40px rgba(201,168,76,.45);transform:translateY(-2px)}
+.btn2{border:1px solid var(--border);color:var(--text);padding:15px 36px;border-radius:8px;text-decoration:none;font-weight:500;font-size:.87rem;letter-spacing:.06em;backdrop-filter:blur(10px);transition:border-color .3s,background .3s,transform .2s}
+.btn2:hover{border-color:var(--gold);background:rgba(201,168,76,.07);transform:translateY(-2px)}
+.hstats{display:flex;gap:40px;margin-top:60px;flex-wrap:wrap}
+.stat-n{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:var(--gold);line-height:1}
+.stat-l{font-size:.7rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+.hscroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;z-index:2}
+.sline{width:1px;height:36px;background:linear-gradient(var(--gold),transparent);animation:sl 2s ease-in-out infinite}
+@keyframes sl{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* SECTIONS */
+section{padding:100px 5%}
+.slabel{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.slabel::before{content:'';width:28px;height:1px;background:var(--gold)}
+.stitle{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4vw,3rem);font-weight:900;line-height:1.15;margin-bottom:20px}
+.stitle span{background:linear-gradient(135deg,var(--gold),var(--gold-lt));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ABOUT */
+#about .inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1200px;margin:0 auto}
+.acard{background:var(--surf);border:1px solid var(--border);border-radius:20px;padding:40px;backdrop-filter:blur(20px);position:relative;overflow:hidden}
+.acard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--purple-mid),var(--gold))}
+.afloat{background:linear-gradient(135deg,var(--gold),var(--gold-lt));color:var(--black);padding:20px 28px;border-radius:16px;text-align:center;box-shadow:0 20px 60px rgba(201,168,76,.3);margin-top:20px;display:inline-block}
+.afloat-n{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;line-height:1}
+.afloat-t{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+.apoint{display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--muted);margin-top:12px}
+.apoint span:first-child{color:var(--gold)}
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px}
+.vitem{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:20px;transition:border-color .3s,transform .3s}
+.vitem:hover{border-color:var(--gold);transform:translateY(-4px)}
+.vico{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--purple),var(--purple-mid));display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:15px}
+.vname{font-weight:700;font-size:.86rem;color:var(--gold);margin-bottom:4px}
+.vdesc{font-size:.77rem;color:var(--muted);line-height:1.5}
+
+/* SERVICES */
+#services{background:linear-gradient(180deg,var(--bg) 0%,rgba(74,29,143,.07) 50%,var(--bg) 100%)}
+.shdr{max-width:1200px;margin:0 auto 56px;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1200px;margin:0 auto}
+.scard{background:var(--surf);border:1px solid var(--border);border-radius:16px;padding:34px;position:relative;overflow:hidden;transition:transform .4s,border-color .4s,box-shadow .4s;backdrop-filter:blur(10px)}
+.scard::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(74,29,143,.15),transparent);opacity:0;transition:opacity .4s}
+.scard:hover{transform:translateY(-8px);border-color:rgba(201,168,76,.4);box-shadow:0 24px 60px rgba(74,29,143,.25)}
+.scard:hover::after{opacity:1}
+.snum{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:rgba(201,168,76,.1);position:absolute;top:18px;right:22px;line-height:1}
+.sico{width:50px;height:50px;border-radius:12px;background:linear-gradient(135deg,var(--purple),var(--purple-mid));display:flex;align-items:center;justify-content:center;font-size:21px;margin-bottom:22px;position:relative;z-index:1}
+.stname{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:12px;position:relative;z-index:1}
+.sdesc{font-size:.83rem;color:var(--muted);line-height:1.75;position:relative;z-index:1}
+.sarr{margin-top:22px;display:inline-flex;align-items:center;gap:8px;font-size:.76rem;color:var(--gold);font-weight:600;letter-spacing:.08em;text-transform:uppercase;transition:gap .3s;position:relative;z-index:1}
+.scard:hover .sarr{gap:14px}
+
+/* CLIENTS */
+#clients{text-align:center;padding:80px 5%}
+#clients .slabel{justify-content:center}
+#clients .slabel::before{display:none}
+.ctracks{display:flex;gap:32px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:48px}
+.cbadge{background:var(--surf);border:1px solid var(--border);border-radius:100px;padding:16px 34px;transition:border-color .3s,transform .3s}
+.cbadge:hover{border-color:var(--gold);transform:translateY(-3px)}
+.cbadge span{font-family:'Playfair Display',serif;font-size:.92rem;font-weight:700;color:var(--muted);transition:color .3s}
+.cbadge:hover span{color:var(--gold)}
+
+/* CONTACT */
+#contact .inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.cinfo{position:sticky;top:100px}
+.cinfo p{color:var(--muted);line-height:1.8;margin-bottom:36px}
+.citems{display:flex;flex-direction:column;gap:18px}
+.citem{display:flex;align-items:center;gap:14px;background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px;backdrop-filter:blur(10px)}
+.cico{width:38px;height:38px;background:linear-gradient(135deg,var(--purple),var(--purple-mid));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.citem strong{display:block;font-size:.72rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.citem span{font-size:.86rem;color:var(--muted)}
+.cform{display:flex;flex-direction:column;gap:18px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg{display:flex;flex-direction:column;gap:7px}
+.fg label{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.fg input,.fg textarea,.fg select{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:13px 17px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;transition:border-color .3s,box-shadow .3s;width:100%;appearance:none}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.1)}
+.fg textarea{height:120px;resize:vertical}
+.fg select option{background:var(--bg);color:var(--text)}
+.fsub{background:linear-gradient(135deg,var(--gold),var(--gold-lt));color:var(--black);border:none;padding:17px 38px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.87rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:box-shadow .3s,transform .2s;align-self:flex-start}
+.fsub:hover{box-shadow:0 8px 40px rgba(201,168,76,.4);transform:translateY(-2px)}
+
+/* FOOTER */
+footer{background:var(--black);border-top:1px solid var(--border);padding:60px 5% 28px}
+.ftop{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:56px;margin-bottom:48px}
+.fbrand p{color:var(--muted);font-size:.86rem;line-height:1.8;margin-top:14px;max-width:300px}
+.fcol h4{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;font-weight:700}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.fcol ul a{color:var(--muted);text-decoration:none;font-size:.86rem;transition:color .3s}
+.fcol ul a:hover{color:var(--gold)}
+.fbot{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:26px;flex-wrap:wrap;gap:14px}
+.fbot p{color:var(--muted);font-size:.78rem}
+
+/* ANIMATIONS */
+.rv{opacity:0;transform:translateY(36px);transition:opacity .7s ease,transform .7s ease}
+.rvl{opacity:0;transform:translateX(-36px);transition:opacity .7s ease,transform .7s ease}
+.rvr{opacity:0;transform:translateX(36px);transition:opacity .7s ease,transform .7s ease}
+.rv.on,.rvl.on,.rvr.on{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .sgrid{grid-template-columns:1fr 1fr}
+  #about .inner,#contact .inner{grid-template-columns:1fr;gap:48px}
+  .ftop{grid-template-columns:1fr 1fr}
+  .cinfo{position:static}
+}
+@media(max-width:768px){
+  nav{height:64px;padding:0 4%}
+  .nav-ul,.nav-btn{display:none}
+  .ham{display:flex}
+  .hero{padding:90px 4% 60px}
+  .hstats{gap:24px;margin-top:44px}
+  .hscroll{display:none}
+  section{padding:64px 4%}
+  .sgrid{grid-template-columns:1fr}
+  .frow{grid-template-columns:1fr}
+  .shdr{flex-direction:column;align-items:flex-start}
+  .ftop{grid-template-columns:1fr;gap:30px}
+  .fbot{flex-direction:column;text-align:center}
+  .hbtns{flex-direction:column;align-items:flex-start}
+  .vgrid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  h1{font-size:2.4rem}
+  .stitle{font-size:1.75rem}
+  .ctracks{gap:12px}
+  .cbadge{padding:12px 22px}
+}
+</style>
+</head>
+<body>
+<div id="cdot"></div>
+<div id="cring"></div>
+<div id="sbar"></div>
+
+<nav id="nav">
+  <a href="#" class="logo">
+    <div class="logo-mark">JL</div>
+    <div><div class="logo-name">Joshlee Solutions</div><div class="logo-sub">Africa</div></div>
+  </a>
+  <ul class="nav-ul">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#clients">Clients</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-btn">Get Started</a>
+  <button class="ham" id="ham"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob" id="mob">
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#clients">Clients</a>
+  <a href="#contact">Contact</a>
+  <a href="#contact" class="nav-btn">Get Started</a>
+</div>
+
+<section class="hero">
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <div class="hgrid"></div>
+  <div class="hcont">
+    <div class="badge">🔒 Nairobi, Kenya · IT Consultancy</div>
+    <h1>Securing <em>Africa's</em><br>Digital Future</h1>
+    <p class="hdesc">End-to-end IT consultancy, cybersecurity, cloud infrastructure, and turnkey solutions — built for enterprises across Africa.</p>
+    <div class="hbtns">
+      <a href="#services" class="btn1">Explore Services →</a>
+      <a href="#contact" class="btn2">Talk to Us</a>
+    </div>
+    <div class="hstats">
+      <div><div class="stat-n">7+</div><div class="stat-l">Years Active</div></div>
+      <div><div class="stat-n">50+</div><div class="stat-l">Clients Served</div></div>
+      <div><div class="stat-n">100%</div><div class="stat-l">Uptime Focus</div></div>
+    </div>
+  </div>
+  <div class="hscroll"><div class="sline"></div><span>Scroll</span></div>
+</section>
+
+<section id="about">
+  <div class="inner">
+    <div class="rvl">
+      <div class="acard">
+        <div class="slabel">Est. Nairobi, Kenya</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:900;margin-bottom:14px;line-height:1.2">Africa's Trusted <span style="color:var(--gold)">IT Partner</span></h2>
+        <p style="color:var(--muted);font-size:.88rem;line-height:1.8">Joshlee Solutions Africa delivers enterprise-grade technology to businesses across the continent, transforming complex IT challenges into strategic advantages.</p>
+        <div class="apoint"><span>✦</span><span>Mission: Deliver future-ready IT solutions</span></div>
+        <div class="apoint"><span>✦</span><span>Vision: Digital excellence across Africa</span></div>
+        <div class="apoint"><span>✦</span><span>Built on trust, quality, and innovation</span></div>
+      </div>
+      <div class="afloat">
+        <div class="afloat-n">JLSA</div>
+        <div class="afloat-t">Solutions Africa</div>
+      </div>
+    </div>
+    <div class="rvr">
+      <div class="slabel">Who We Are</div>
+      <h2 class="stitle">Developing Solutions for <span>The Future</span></h2>
+      <p style="color:var(--muted);line-height:1.85;margin-bottom:16px">Joshlee Solutions Africa (JLSA) is a Nairobi-based IT consultancy delivering cutting-edge technology services to organizations of all sizes. We bring together deep expertise in cybersecurity, networking, cloud infrastructure, and software.</p>
+      <p style="color:var(--muted);line-height:1.85">From strategic ICT management to hands-on implementation, our team provides end-to-end support that is acceptability-driven, dependable, efficient, and maintainable.</p>
+      <div class="vgrid">
+        <div class="vitem d1"><div class="vico">🎯</div><div class="vname">Acceptability</div><div class="vdesc">Easy to use, compatible solutions</div></div>
+        <div class="vitem d2"><div class="vico">🔒</div><div class="vname">Dependability</div><div class="vdesc">Trusted and reliable delivery</div></div>
+        <div class="vitem d3"><div class="vico">⚡</div><div class="vname">Efficiency</div><div class="vdesc">Cost-effective resource optimization</div></div>
+        <div class="vitem d4"><div class="vico">🔄</div><div class="vname">Maintainability</div><div class="vdesc">Flexible, adaptive products</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="shdr">
+    <div><div class="slabel rv">What We Do</div><h2 class="stitle rv">Our <span>Core Services</span></h2></div>
+    <p class="rv" style="color:var(--muted);max-width:340px;font-size:.9rem;line-height:1.75">Enterprise IT solutions engineered for the African market — from security audits to full turnkey implementations.</p>
+  </div>
+  <div class="sgrid">
+    <div class="scard rv d1"><div class="snum">01</div><div class="sico">🛡️</div><h3 class="stname">Cybersecurity</h3><p class="sdesc">Comprehensive threat protection, vulnerability assessments, and proactive defense strategies to secure your digital infrastructure from evolving cyber threats.</p><div class="sarr">Learn More →</div></div>
+    <div class="scard rv d2"><div class="snum">02</div><div class="sico">☁️</div><h3 class="stname">Cloud Security</h3><p class="sdesc">Secure cloud migration, multi-cloud architecture design, and ongoing cloud posture management to protect your data at every layer.</p><div class="sarr">Learn More →</div></div>
+    <div class="scard rv d3"><div class="snum">03</div><div class="sico">🌐</div><h3 class="stname">Network Security Audit</h3><p class="sdesc">Deep-dive network assessments identifying vulnerabilities in LAN/WAN infrastructure, firewall configurations, and access control policies.</p><div class="sarr">Learn More →</div></div>
+    <div class="scard rv d1"><div class="snum">04</div><div class="sico">💻</div><h3 class="stname">Software Security Audit</h3><p class="sdesc">End-to-end application security reviews — static/dynamic code analysis, penetration testing, and compliance reporting for your software stack.</p><div class="sarr">Learn More →</div></div>
+    <div class="scard rv d2"><div class="snum">05</div><div class="sico">🔧</div><h3 class="stname">IT Turnkey Solutions</h3><p class="sdesc">Full-scope project delivery from needs analysis through hardware procurement, installation, configuration, and staff training. We handle everything.</p><div class="sarr">Learn More →</div></div>
+    <div class="scard rv d3"><div class="snum">06</div><div class="sico">📡</div><h3 class="stname">ICT Management & Networking</h3><p class="sdesc">Strategic ICT policy development, Office 365 management, cloud storage solutions, and enterprise networking with minimal downtime guarantees.</p><div class="sarr">Learn More →</div></div>
+  </div>
+</section>
+
+<section id="clients">
+  <div class="slabel">Who We Serve</div>
+  <h2 class="stitle rv">Trusted by <span>Leading Organizations</span></h2>
+  <div class="ctracks">
+    <div class="cbadge rv d1"><span>Italian Trade Agency</span></div>
+    <div class="cbadge rv d2"><span>Grasi San Marco – Malindi</span></div>
+    <div class="cbadge rv d3"><span>Self Help Africa</span></div>
+    <div class="cbadge rv d4"><span>Metropolitan Sacco</span></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="inner">
+    <div class="cinfo rvl">
+      <div class="slabel">Get In Touch</div>
+      <h2 class="stitle">Let's Build Something <span>Secure</span></h2>
+      <p>Ready to secure your infrastructure and accelerate your IT strategy? Our team is on standby to discuss your needs and propose the right solution.</p>
+      <div class="citems">
+        <div class="citem"><div class="cico">📞</div><div><strong>Phone</strong><span>+254 739 293 691</span></div></div>
+        <div class="citem"><div class="cico">✉️</div><div><strong>Email</strong><span>info@joshleeafrica.com</span></div></div>
+        <div class="citem"><div class="cico">📍</div><div><strong>Location</strong><span>Nairobi, Kenya</span></div></div>
+      </div>
+    </div>
+    <div class="cform rvr">
+      <div class="frow">
+        <div class="fg"><label>First Name</label><input type="text" placeholder="John"></div>
+        <div class="fg"><label>Last Name</label><input type="text" placeholder="Doe"></div>
+      </div>
+      <div class="fg"><label>Email</label><input type="email" placeholder="john@company.com"></div>
+      <div class="fg"><label>Service</label><select><option value="">Select a service...</option><option>Cybersecurity</option><option>Cloud Security</option><option>Network Security Audit</option><option>Software Security Audit</option><option>IT Turnkey Solutions</option><option>ICT Management &amp; Networking</option></select></div>
+      <div class="fg"><label>Message</label><textarea placeholder="Tell us about your project..."></textarea></div>
+      <button class="fsub">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ftop">
+    <div class="fbrand">
+      <div class="logo"><div class="logo-mark">JL</div><div style="margin-left:12px"><div class="logo-name">Joshlee Solutions</div><div class="logo-sub">Africa</div></div></div>
+      <p>Developing solutions for the future. Nairobi's premier IT consultancy firm serving enterprises across East Africa and beyond.</p>
+    </div>
+    <div class="fcol"><h4>Services</h4><ul><li><a href="#services">Cybersecurity</a></li><li><a href="#services">Cloud Security</a></li><li><a href="#services">Network Audit</a></li><li><a href="#services">Software Audit</a></li><li><a href="#services">Turnkey Solutions</a></li></ul></div>
+    <div class="fcol"><h4>Company</h4><ul><li><a href="#about">About Us</a></li><li><a href="#clients">Our Clients</a></li><li><a href="#contact">Contact</a></li></ul></div>
+  </div>
+  <div class="fbot">
+    <p>© 2026 Joshlee Solutions Africa. All rights reserved.</p>
+    <p style="color:var(--gold);font-size:.76rem">Nairobi, Kenya</p>
+  </div>
+</footer>
+
+<script>
+const dot=document.getElementById('cdot'),ring=document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.cssText=`left:${mx}px;top:${my}px`});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.cssText=`left:${rx}px;top:${ry}px`;requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.scard').forEach(el=>{el.addEventListener('mouseenter',()=>{ring.style.width='56px';ring.style.height='56px'});el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px'})});
+window.addEventListener('scroll',()=>{
+  const p=window.scrollY/(document.body.scrollHeight-innerHeight)*100;
+  document.getElementById('sbar').style.width=p+'%';
+  document.getElementById('nav').classList.toggle('sc',scrollY>60);
+});
+const ham=document.getElementById('ham'),mob=document.getElementById('mob');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}));
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),{threshold:.12});
+document.querySelectorAll('.rv,.rvl,.rvr,.vitem,.cbadge,.scard').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
